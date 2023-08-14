@@ -1,0 +1,6 @@
+{
+  "description": "ClusterProfile is the name of a set of input variables\nprovided to the installer defining the target cloud,\ncluster topology, etc.",
+  "type": "string",
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

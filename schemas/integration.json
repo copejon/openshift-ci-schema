@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "title": "Integration is an ImageStream holding the latest images from development builds of OCP.",
+  "properties": {
+    "include_built_images": {
+      "description": "IncludeBuiltImages determines if the release we assemble will include\nimages built during the test itself.",
+      "type": "boolean",
+      "x-go-name": "IncludeBuiltImages"
+    },
+    "name": {
+      "description": "Name is the name of the ImageStream",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "namespace": {
+      "description": "Namespace is the namespace in which the integration stream lives.",
+      "type": "string",
+      "x-go-name": "Namespace"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

@@ -1,0 +1,11 @@
+{
+  "description": "OpenshiftInstallerUPISrcClusterTestConfiguration describes a\ntest that provisions machines using installer-upi image and\ninstalls the cluster using UPI flow. Tests will be run\nakin to the OpenshiftInstallerSrcClusterTestConfiguration.",
+  "type": "object",
+  "properties": {
+    "cluster_profile": {
+      "$ref": "_definitions.json#/definitions/ClusterProfile"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

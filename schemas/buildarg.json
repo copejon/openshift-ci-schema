@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "Name of the build arg.",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "value": {
+      "description": "Value of the build arg.",
+      "type": "string",
+      "x-go-name": "Value"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

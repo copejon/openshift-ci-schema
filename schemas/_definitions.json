@@ -1,0 +1,1999 @@
+{
+  "definitions": {
+    "BuildArg": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the build arg.",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "value": {
+          "description": "Value of the build arg.",
+          "type": "string",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "BuildRootImageConfiguration": {
+      "description": "BuildRootImageConfiguration holds the two ways of using a base image\nthat the pipeline will caches on.",
+      "type": "object",
+      "properties": {
+        "from_repository": {
+          "description": "If the BuildRoot images pullspec should be read from a file in the repository (BuildRootImageFileName).",
+          "type": "boolean",
+          "x-go-name": "FromRepository"
+        },
+        "image_stream_tag": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "project_image": {
+          "$ref": "#/definitions/ProjectDirectoryImageBuildInputs"
+        },
+        "use_build_cache": {
+          "description": "UseBuildCache enables the import and use of the prior `bin` image\nas a build cache, if the underlying build root has not changed since\nthe previous cache was published.",
+          "type": "boolean",
+          "x-go-name": "UseBuildCache"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Bundle": {
+      "description": "Bundle contains the data needed to build a bundle from the bundle source image and update an index to include the new bundle",
+      "type": "object",
+      "properties": {
+        "as": {
+          "description": "As defines the name for this bundle. If not set, a name will be automatically generated for the bundle.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "base_index": {
+          "description": "BaseIndex defines what index image to use as a base when adding the bundle to an index",
+          "type": "string",
+          "x-go-name": "BaseIndex"
+        },
+        "context_dir": {
+          "description": "ContextDir defines the source directory to build the bundle from relative to the repository root",
+          "type": "string",
+          "x-go-name": "ContextDir"
+        },
+        "dockerfile_path": {
+          "description": "DockerfilePath defines where the dockerfile for build the bundle exists relative to the contextdir",
+          "type": "string",
+          "x-go-name": "DockerfilePath"
+        },
+        "skip_building_index": {
+          "description": "Skip building the index image for this bundle. Default to false.\nThis field works only for named bundles, i.e., \"as\" is not empty.",
+          "type": "boolean",
+          "x-go-name": "SkipBuildingIndex"
+        },
+        "update_graph": {
+          "$ref": "#/definitions/IndexUpdate"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "BundleSourceStepConfiguration": {
+      "description": "BundleSourceStepConfiguration describes a step that performs a set of\nsubstitutions on all yaml files in the `src` image so that the\npullspecs in the operator manifests point to images inside the CI registry.\nIt is intended to be used as the source image for bundle image builds.",
+      "type": "object",
+      "properties": {
+        "substitutions": {
+          "description": "Substitutions contains pullspecs that need to be replaced by images\nin the CI cluster for operator bundle images",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PullSpecSubstitution"
+          },
+          "x-go-name": "Substitutions"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Candidate": {
+      "description": "Candidate describes a validated candidate release payload",
+      "type": "object",
+      "properties": {
+        "architecture": {
+          "$ref": "#/definitions/ReleaseArchitecture"
+        },
+        "product": {
+          "$ref": "#/definitions/ReleaseProduct"
+        },
+        "relative": {
+          "description": "Relative optionally specifies how old of a release\nis requested from this stream. For instance, a value\nof 1 will resolve to the previous validated release\nfor this stream.",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Relative"
+        },
+        "stream": {
+          "$ref": "#/definitions/ReleaseStream"
+        },
+        "version": {
+          "description": "Version is the minor version to search for",
+          "type": "string",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Cloud": {
+      "type": "string",
+      "title": "Cloud is the name of a cloud provider, e.g., aws cluster topology, etc.",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Cluster": {
+      "type": "string",
+      "title": "Cluster is the name of a cluster in CI build farm.",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ClusterClaim": {
+      "type": "object",
+      "title": "ClusterClaim claims an OpenShift cluster for the job.",
+      "properties": {
+        "architecture": {
+          "$ref": "#/definitions/ReleaseArchitecture"
+        },
+        "as": {
+          "description": "As is the name to use when importing the cluster claim release payload.\nIf unset, claim release will be imported as `latest`.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "cloud": {
+          "$ref": "#/definitions/Cloud"
+        },
+        "labels": {
+          "description": "Labels is the labels to select the cluster pools",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "Labels"
+        },
+        "owner": {
+          "description": "Owner is the owner of cloud account used to install the product, e.g., dpp.",
+          "type": "string",
+          "x-go-name": "Owner"
+        },
+        "product": {
+          "$ref": "#/definitions/ReleaseProduct"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        },
+        "version": {
+          "description": "Version is the version of the product",
+          "type": "string",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ClusterProfile": {
+      "description": "ClusterProfile is the name of a set of input variables\nprovided to the installer defining the target cloud,\ncluster topology, etc.",
+      "type": "string",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ClusterTestConfiguration": {
+      "description": "ClusterTestConfiguration describes a test that provisions\na cluster and runs a command in it.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ContainerTestConfiguration": {
+      "description": "ContainerTestConfiguration describes a test that runs a\ncommand in one of the previously built images.",
+      "type": "object",
+      "properties": {
+        "clone": {
+          "description": "If the step should clone the source code prior to running the command.\nDefaults to `true` for `base_images`, `false` otherwise.",
+          "type": "boolean",
+          "x-go-name": "Clone"
+        },
+        "from": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        },
+        "memory_backed_volume": {
+          "$ref": "#/definitions/MemoryBackedVolume"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "CredentialReference": {
+      "type": "object",
+      "title": "CredentialReference defines a secret to mount into a step and where to mount it.",
+      "properties": {
+        "mount_path": {
+          "description": "MountPath is where the secret should be mounted.",
+          "type": "string",
+          "x-go-name": "MountPath"
+        },
+        "name": {
+          "description": "Names is which source secret to mount.",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "description": "Namespace is where the source secret exists.",
+          "type": "string",
+          "x-go-name": "Namespace"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "DependencyOverrides": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Duration": {
+      "description": "Duration is a wrapper around time.Duration that parses times in either\n'integer number of nanoseconds' or 'duration string' formats and serializes\nto 'duration string' format.\n+kubebuilder:validation:Type=string",
+      "type": "object",
+      "x-go-package": "k8s.io/test-infra/prow/apis/prowjobs/v1"
+    },
+    "ImageBuildInputs": {
+      "description": "ImageBuildInputs is a subset of the v1 OpenShift Build API object\ndefining an input source.",
+      "type": "object",
+      "properties": {
+        "as": {
+          "description": "As is a list of multi-stage step names or image names that will\nbe replaced by the image reference from this step. For instance,\nif the Dockerfile defines FROM nginx:latest AS base, specifying\neither \"nginx:latest\" or \"base\" in this array will replace that\nimage with the pipeline input.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "As"
+        },
+        "paths": {
+          "description": "Paths is a list of paths to copy out of this image and into the\ncontext directory.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ImageSourcePath"
+          },
+          "x-go-name": "Paths"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ImageSourcePath": {
+      "description": "ImageSourcePath maps a path in the source image into a destination\npath in the context. See the v1 OpenShift Build API for more info.",
+      "type": "object",
+      "properties": {
+        "destination_dir": {
+          "description": "DestinationDir is the directory in the destination image to copy\nto.",
+          "type": "string",
+          "x-go-name": "DestinationDir"
+        },
+        "source_path": {
+          "description": "SourcePath is a file or directory in the source image to copy from.",
+          "type": "string",
+          "x-go-name": "SourcePath"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ImageStreamTagReference": {
+      "description": "ImageStreamTagReference identifies an ImageStreamTag",
+      "type": "object",
+      "properties": {
+        "as": {
+          "description": "As is an optional string to use as the intermediate name for this reference.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "type": "string",
+          "x-go-name": "Namespace"
+        },
+        "tag": {
+          "type": "string",
+          "x-go-name": "Tag"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "IndexGeneratorStepConfiguration": {
+      "description": "IndexGeneratorStepConfiguration describes a step that creates an index database and\nDockerfile to build an operator index that uses the generated database based on\nbundle names provided in OperatorIndex",
+      "type": "object",
+      "properties": {
+        "base_index": {
+          "description": "BaseIndex is the index image to add the bundle(s) to. If unset, a new index is created",
+          "type": "string",
+          "x-go-name": "BaseIndex"
+        },
+        "operator_index": {
+          "description": "OperatorIndex is a list of the names of the bundle images that the\nindex will contain in its database.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "OperatorIndex"
+        },
+        "to": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        },
+        "update_graph": {
+          "$ref": "#/definitions/IndexUpdate"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "IndexUpdate": {
+      "description": "IndexUpdate specifies the update mode for an operator being added to an index",
+      "type": "string",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "InputConfiguration": {
+      "description": "InputConfiguration contains the set of image inputs\nto a build and can be used as an override to the\ncanonical inputs by a local process.",
+      "type": "object",
+      "properties": {
+        "base_images": {
+          "description": "The list of base images describe\nwhich images are going to be necessary outside\nof the pipeline. The key will be the alias that other\nsteps use to refer to this image.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ImageStreamTagReference"
+          },
+          "x-go-name": "BaseImages"
+        },
+        "base_rpm_images": {
+          "description": "BaseRPMImages is a list of the images and their aliases that will\nhave RPM repositories injected into them for downstream\nimage builds that require built project RPMs.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ImageStreamTagReference"
+          },
+          "x-go-name": "BaseRPMImages"
+        },
+        "build_root": {
+          "$ref": "#/definitions/BuildRootImageConfiguration"
+        },
+        "releases": {
+          "description": "Releases maps semantic release payload identifiers\nto the names that they will be exposed under. For\ninstance, an 'initial' name will be exposed as\n$RELEASE_IMAGE_INITIAL. The 'latest' key is special\nand cannot co-exist with 'tag_specification', as\nthey result in the same output.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/UnresolvedRelease"
+          },
+          "x-go-name": "Releases"
+        },
+        "tag_specification": {
+          "$ref": "#/definitions/ReleaseTagConfiguration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "InputImage": {
+      "type": "object",
+      "properties": {
+        "base_image": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "to": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "InputImageTagStepConfiguration": {
+      "description": "InputImageTagStepConfiguration describes a step that\ntags an externalImage image in to the build pipeline.\nif no explicit output tag is provided, the name\nof the image is used as the tag.",
+      "type": "object",
+      "properties": {
+        "base_image": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "to": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Integration": {
+      "type": "object",
+      "title": "Integration is an ImageStream holding the latest images from development builds of OCP.",
+      "properties": {
+        "include_built_images": {
+          "description": "IncludeBuiltImages determines if the release we assemble will include\nimages built during the test itself.",
+          "type": "boolean",
+          "x-go-name": "IncludeBuiltImages"
+        },
+        "name": {
+          "description": "Name is the name of the ImageStream",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "description": "Namespace is the namespace in which the integration stream lives.",
+          "type": "string",
+          "x-go-name": "Namespace"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "LiteralTestStep": {
+      "description": "LiteralTestStep is the external representation of a test step allowing users\nto define new test steps. It gets converted to an internal LiteralTestStep\nstruct that represents the full configuration that ci-operator can use.",
+      "type": "object",
+      "properties": {
+        "as": {
+          "description": "As is the name of the LiteralTestStep.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "best_effort": {
+          "description": "BestEffort defines if this step should cause the job to fail when the\nstep fails. This only applies when AllowBestEffortPostSteps flag is set\nto true in MultiStageTestConfiguration. This option is applicable to\n`post` steps.",
+          "type": "boolean",
+          "x-go-name": "BestEffort"
+        },
+        "cli": {
+          "description": "Cli is the (optional) name of the release from which the `oc` binary\nwill be injected into this step.",
+          "type": "string",
+          "x-go-name": "Cli"
+        },
+        "commands": {
+          "description": "Commands is the command(s) that will be run inside the image.",
+          "type": "string",
+          "x-go-name": "Commands"
+        },
+        "credentials": {
+          "description": "Credentials defines the credentials we'll mount into this step.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CredentialReference"
+          },
+          "x-go-name": "Credentials"
+        },
+        "dependencies": {
+          "description": "Dependencies lists images which must be available before the test runs\nand the environment variables which are used to expose their pull specs.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepDependency"
+          },
+          "x-go-name": "Dependencies"
+        },
+        "dnsConfig": {
+          "$ref": "#/definitions/StepDNSConfig"
+        },
+        "env": {
+          "description": "Environment lists parameters that should be set by the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepParameter"
+          },
+          "x-go-name": "Environment"
+        },
+        "from": {
+          "description": "From is the container image that will be used for this step.",
+          "type": "string",
+          "x-go-name": "From"
+        },
+        "from_image": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "grace_period": {
+          "$ref": "#/definitions/Duration"
+        },
+        "leases": {
+          "description": "Leases lists resources that should be acquired for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepLease"
+          },
+          "x-go-name": "Leases"
+        },
+        "no_kubeconfig": {
+          "description": "NoKubeconfig determines that no $KUBECONFIG will exist in $SHARED_DIR,\nso no local copy of it will be created for the step and if the step\ncreates one, it will not be propagated.",
+          "type": "boolean",
+          "x-go-name": "NoKubeconfig"
+        },
+        "observers": {
+          "description": "Observers are the observers that should be running",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Observers"
+        },
+        "optional_on_success": {
+          "description": "OptionalOnSuccess defines if this step should be skipped as long\nas all `pre` and `test` steps were successful and AllowSkipOnSuccess\nflag is set to true in MultiStageTestConfiguration. This option is\napplicable to `post` steps.",
+          "type": "boolean",
+          "x-go-name": "OptionalOnSuccess"
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceRequirements"
+        },
+        "run_as_script": {
+          "description": "RunAsScript defines if this step should be executed as a script mounted\nin the test container instead of being executed directly via bash",
+          "type": "boolean",
+          "x-go-name": "RunAsScript"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "MemoryBackedVolume": {
+      "description": "MemoryBackedVolume describes a tmpfs (memory backed volume)\nthat will be mounted into a test container at /tmp/volume.\nUse with tests that need extremely fast disk, such as those\nthat run an etcd server or other IO-intensive workload.",
+      "type": "object",
+      "properties": {
+        "size": {
+          "description": "Size is the requested size of the volume as a Kubernetes\nquantity, i.e. \"1Gi\" or \"500M\"",
+          "type": "string",
+          "x-go-name": "Size"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Metadata": {
+      "description": "Metadata describes the source repo for which a config is written",
+      "type": "object",
+      "properties": {
+        "branch": {
+          "type": "string",
+          "x-go-name": "Branch"
+        },
+        "org": {
+          "description": "Org\nrequired: True",
+          "type": "string",
+          "x-go-name": "Org"
+        },
+        "repo": {
+          "type": "string",
+          "x-go-name": "Repo"
+        },
+        "variant": {
+          "type": "string",
+          "x-go-name": "Variant"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "MultiStageTestConfiguration": {
+      "description": "MultiStageTestConfiguration is a flexible configuration mode that allows tighter control over\nthe multiple stages of end to end tests.",
+      "type": "object",
+      "properties": {
+        "allow_best_effort_post_steps": {
+          "description": "AllowBestEffortPostSteps defines if any `post` steps can be ignored when\nthey fail. The given step must explicitly ask for being ignored by setting\nthe OptionalOnSuccess flag to true.",
+          "type": "boolean",
+          "x-go-name": "AllowBestEffortPostSteps"
+        },
+        "allow_skip_on_success": {
+          "description": "AllowSkipOnSuccess defines if any steps can be skipped when\nall previous `pre` and `test` steps were successful. The given step must explicitly\nask for being skipped by setting the OptionalOnSuccess flag to true.",
+          "type": "boolean",
+          "x-go-name": "AllowSkipOnSuccess"
+        },
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        },
+        "dependencies": {
+          "$ref": "#/definitions/TestDependencies"
+        },
+        "dependency_overrides": {
+          "$ref": "#/definitions/DependencyOverrides"
+        },
+        "dnsConfig": {
+          "$ref": "#/definitions/StepDNSConfig"
+        },
+        "env": {
+          "$ref": "#/definitions/TestEnvironment"
+        },
+        "leases": {
+          "description": "Leases lists resources that should be acquired for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepLease"
+          },
+          "x-go-name": "Leases"
+        },
+        "observers": {
+          "$ref": "#/definitions/Observers"
+        },
+        "post": {
+          "description": "Post is the array of test steps run after the tests finish and teardown/deprovision resources.\nPost steps always run, even if previous steps fail. However, they have an option to skip\nexecution if previous Pre and Test steps passed.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestStep"
+          },
+          "x-go-name": "Post"
+        },
+        "pre": {
+          "description": "Pre is the array of test steps run to set up the environment for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestStep"
+          },
+          "x-go-name": "Pre"
+        },
+        "test": {
+          "description": "Test is the array of test steps that define the actual test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestStep"
+          },
+          "x-go-name": "Test"
+        },
+        "workflow": {
+          "description": "Workflow is the name of the workflow to be used for this configuration. For fields defined in both\nthe config and the workflow, the fields from the config will override what is set in Workflow.",
+          "type": "string",
+          "x-go-name": "Workflow"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "MultiStageTestConfigurationLiteral": {
+      "description": "MultiStageTestConfigurationLiteral is a form of the MultiStageTestConfiguration that does not include\nreferences. It is the type that MultiStageTestConfigurations are converted to when parsed by the\nci-operator-configresolver.",
+      "type": "object",
+      "properties": {
+        "allow_best_effort_post_steps": {
+          "description": "AllowBestEffortPostSteps defines if any `post` steps can be ignored when\nthey fail. The given step must explicitly ask for being ignored by setting\nthe OptionalOnSuccess flag to true.",
+          "type": "boolean",
+          "x-go-name": "AllowBestEffortPostSteps"
+        },
+        "allow_skip_on_success": {
+          "description": "AllowSkipOnSuccess defines if any steps can be skipped when\nall previous `pre` and `test` steps were successful. The given step must explicitly\nask for being skipped by setting the OptionalOnSuccess flag to true.",
+          "type": "boolean",
+          "x-go-name": "AllowSkipOnSuccess"
+        },
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        },
+        "dependencies": {
+          "$ref": "#/definitions/TestDependencies"
+        },
+        "dependency_overrides": {
+          "$ref": "#/definitions/DependencyOverrides"
+        },
+        "dnsConfig": {
+          "$ref": "#/definitions/StepDNSConfig"
+        },
+        "env": {
+          "$ref": "#/definitions/TestEnvironment"
+        },
+        "leases": {
+          "description": "Leases lists resources that should be acquired for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepLease"
+          },
+          "x-go-name": "Leases"
+        },
+        "observers": {
+          "description": "Observers are the observers that need to be run",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Observer"
+          },
+          "x-go-name": "Observers"
+        },
+        "post": {
+          "description": "Post is the array of test steps run after the tests finish and teardown/deprovision resources.\nPost steps always run, even if previous steps fail.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LiteralTestStep"
+          },
+          "x-go-name": "Post"
+        },
+        "pre": {
+          "description": "Pre is the array of test steps run to set up the environment for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LiteralTestStep"
+          },
+          "x-go-name": "Pre"
+        },
+        "test": {
+          "description": "Test is the array of test steps that define the actual test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LiteralTestStep"
+          },
+          "x-go-name": "Test"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Observer": {
+      "description": "Observer is the configuration for an observer Pod that will run in parallel\nwith a multi-stage test job.",
+      "type": "object",
+      "properties": {
+        "commands": {
+          "description": "Commands is the command(s) that will be run inside the image.",
+          "type": "string",
+          "x-go-name": "Commands"
+        },
+        "from": {
+          "description": "From is the container image that will be used for this observer.",
+          "type": "string",
+          "x-go-name": "From"
+        },
+        "from_image": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "grace_period": {
+          "$ref": "#/definitions/Duration"
+        },
+        "name": {
+          "description": "Name is the name of this observer",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceRequirements"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Observers": {
+      "description": "Observers is a configuration for which observer pods should and should not\nbe run during a job",
+      "type": "object",
+      "properties": {
+        "disable": {
+          "description": "Disable is a list of named observers that should be disabled",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Disable"
+        },
+        "enable": {
+          "description": "Enable is a list of named observer that should be enabled",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Enable"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OpenshiftAnsibleClusterTestConfiguration": {
+      "description": "OpenshiftAnsibleClusterTestConfiguration describes a test\nthat provisions a cluster using openshift-ansible and runs\nconformance tests.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OpenshiftAnsibleCustomClusterTestConfiguration": {
+      "description": "OpenshiftAnsibleCustomClusterTestConfiguration describes a\ntest that provisions a cluster using openshift-ansible's\ncustom provisioner, and runs conformance tests.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OpenshiftAnsibleSrcClusterTestConfiguration": {
+      "description": "OpenshiftAnsibleSrcClusterTestConfiguration describes a\ntest that provisions a cluster using openshift-ansible and\nexecutes a command in the `src` image.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OpenshiftInstallerClusterTestConfiguration": {
+      "description": "OpenshiftInstallerClusterTestConfiguration describes a test\nthat provisions a cluster using openshift-installer and runs\nconformance tests.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        },
+        "upgrade": {
+          "description": "If upgrade is true, RELEASE_IMAGE_INITIAL will be used as\nthe initial payload and the installer image from that\nwill be upgraded. The `run-upgrade-tests` function will be\navailable for the commands.",
+          "type": "boolean",
+          "x-go-name": "Upgrade"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OpenshiftInstallerCustomTestImageClusterTestConfiguration": {
+      "description": "OpenshiftInstallerCustomTestImageClusterTestConfiguration describes a\ntest that provisions a cluster using openshift-installer and\nexecutes a command in the image specified by the job configuration.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        },
+        "from": {
+          "description": "From defines the imagestreamtag that will be used to run the\nprovided test command.  e.g. stable:console-test",
+          "type": "string",
+          "x-go-name": "From"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OpenshiftInstallerUPIClusterTestConfiguration": {
+      "description": "OpenshiftInstallerUPIClusterTestConfiguration describes a\ntest that provisions machines using installer-upi image and\ninstalls the cluster using UPI flow.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OpenshiftInstallerUPISrcClusterTestConfiguration": {
+      "description": "OpenshiftInstallerUPISrcClusterTestConfiguration describes a\ntest that provisions machines using installer-upi image and\ninstalls the cluster using UPI flow. Tests will be run\nakin to the OpenshiftInstallerSrcClusterTestConfiguration.",
+      "type": "object",
+      "properties": {
+        "cluster_profile": {
+          "$ref": "#/definitions/ClusterProfile"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OperatorStepConfiguration": {
+      "description": "bundle build dockerfiles, and images the operator(s) depends on that must\nbe substituted to run in a CI test cluster",
+      "type": "object",
+      "title": "OperatorStepConfiguration describes the locations of operator bundle information,",
+      "properties": {
+        "bundles": {
+          "description": "Bundles define a dockerfile and build context to build a bundle",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Bundle"
+          },
+          "x-go-name": "Bundles"
+        },
+        "substitutions": {
+          "description": "Substitutions describes the pullspecs in the operator manifests that must be subsituted\nwith the pull specs of the images in the CI registry",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PullSpecSubstitution"
+          },
+          "x-go-name": "Substitutions"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "OutputImageTagStepConfiguration": {
+      "description": "OutputImageTagStepConfiguration describes a step that\ntags a pipeline image out from the build pipeline.",
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        },
+        "optional": {
+          "description": "Optional means the output step is not built, published, or\npromoted unless explicitly targeted. Use for builds which\nare invoked only when testing certain parts of the repo.",
+          "type": "boolean",
+          "x-go-name": "Optional"
+        },
+        "to": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "PipelineImageCacheStepConfiguration": {
+      "description": "PipelineImageCacheStepConfiguration describes a\nstep that builds a container image to cache the\noutput of commands.",
+      "type": "object",
+      "properties": {
+        "commands": {
+          "description": "Commands are the shell commands to run in\nthe repository root to create the cached\ncontent.",
+          "type": "string",
+          "x-go-name": "Commands"
+        },
+        "from": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        },
+        "to": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "PipelineImageStreamTagReference": {
+      "description": "PipelineImageStreamTagReference is a tag on the\nImageStream corresponding to the code under test.\nThis tag will identify an image but not use any\nnamespaces or prefixes, For instance, if for the\nimage openshift/origin-pod, the tag would be `pod`.",
+      "type": "string",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Prerelease": {
+      "description": "Prerelease describes a validated release payload before it is exposed",
+      "type": "object",
+      "properties": {
+        "architecture": {
+          "$ref": "#/definitions/ReleaseArchitecture"
+        },
+        "product": {
+          "$ref": "#/definitions/ReleaseProduct"
+        },
+        "relative": {
+          "description": "Relative optionally specifies how old of a release\nis requested from this stream. For instance, a value\nof 1 will resolve to the previous validated release\nfor this stream.",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Relative"
+        },
+        "version_bounds": {
+          "$ref": "#/definitions/VersionBounds"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ProjectDirectoryImageBuildInputs": {
+      "description": "ProjectDirectoryImageBuildInputs holds inputs for an image build from the repo under test",
+      "type": "object",
+      "properties": {
+        "build_args": {
+          "description": "BuildArgs contains build arguments that will be resolved in the Dockerfile.\nSee https://docs.docker.com/engine/reference/builder/#/arg for more details.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BuildArg"
+          },
+          "x-go-name": "BuildArgs"
+        },
+        "context_dir": {
+          "description": "ContextDir is the directory in the project\nfrom which this build should be run.",
+          "type": "string",
+          "x-go-name": "ContextDir"
+        },
+        "dockerfile_literal": {
+          "description": "DockerfileLiteral can be used to  provide an inline Dockerfile.\nMutually exclusive with DockerfilePath.",
+          "type": "string",
+          "x-go-name": "DockerfileLiteral"
+        },
+        "dockerfile_path": {
+          "description": "DockerfilePath is the path to a Dockerfile in the\nproject to run relative to the context_dir.",
+          "type": "string",
+          "x-go-name": "DockerfilePath"
+        },
+        "inputs": {
+          "description": "Inputs is a map of tag reference name to image input changes\nthat will populate the build context for the Dockerfile or\nalter the input image for a multi-stage build.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ImageBuildInputs"
+          },
+          "x-go-name": "Inputs"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ProjectDirectoryImageBuildStepConfiguration": {
+      "description": "ProjectDirectoryImageBuildStepConfiguration describes an\nimage build from a directory in a component project.",
+      "type": "object",
+      "properties": {
+        "build_args": {
+          "description": "BuildArgs contains build arguments that will be resolved in the Dockerfile.\nSee https://docs.docker.com/engine/reference/builder/#/arg for more details.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BuildArg"
+          },
+          "x-go-name": "BuildArgs"
+        },
+        "context_dir": {
+          "description": "ContextDir is the directory in the project\nfrom which this build should be run.",
+          "type": "string",
+          "x-go-name": "ContextDir"
+        },
+        "dockerfile_literal": {
+          "description": "DockerfileLiteral can be used to  provide an inline Dockerfile.\nMutually exclusive with DockerfilePath.",
+          "type": "string",
+          "x-go-name": "DockerfileLiteral"
+        },
+        "dockerfile_path": {
+          "description": "DockerfilePath is the path to a Dockerfile in the\nproject to run relative to the context_dir.",
+          "type": "string",
+          "x-go-name": "DockerfilePath"
+        },
+        "from": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        },
+        "inputs": {
+          "description": "Inputs is a map of tag reference name to image input changes\nthat will populate the build context for the Dockerfile or\nalter the input image for a multi-stage build.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ImageBuildInputs"
+          },
+          "x-go-name": "Inputs"
+        },
+        "optional": {
+          "description": "Optional means the build step is not built, published, or\npromoted unless explicitly targeted. Use for builds which\nare invoked only when testing certain parts of the repo.",
+          "type": "boolean",
+          "x-go-name": "Optional"
+        },
+        "to": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "PromotionConfiguration": {
+      "description": "PromotionConfiguration describes where images created by this\nconfig should be published to. The release tag configuration\ndefines the inputs, while this defines the outputs.",
+      "type": "object",
+      "properties": {
+        "additional_images": {
+          "description": "AdditionalImages is a mapping of images to promote. The\nimages will be taken from the pipeline image stream. The\nkey is the name to promote as and the value is the source\nname. If you specify a tag that does not exist as the source\nthe destination tag will not be created.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "x-go-name": "AdditionalImages"
+        },
+        "disable_build_cache": {
+          "description": "DisableBuildCache stops us from uploading the build cache.\nThis is useful (only) for CI chat bot invocations where\npromotion does not imply output artifacts are being created\nfor posterity.",
+          "type": "boolean",
+          "x-go-name": "DisableBuildCache"
+        },
+        "disabled": {
+          "description": "Disabled will no-op succeed instead of running the actual\npromotion step. This is useful when two branches need to\npromote to the same output imagestream on a cut-over but\nnever concurrently, and you want to have promotion config\nin the ci-operator configuration files all the time.",
+          "type": "boolean",
+          "x-go-name": "Disabled"
+        },
+        "excluded_images": {
+          "description": "ExcludedImages are image names that will not be promoted.\nExclusions are made before additional_images are included.\nUse exclusions when you want to build images for testing\nbut not promote them afterwards.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "ExcludedImages"
+        },
+        "name": {
+          "description": "Name is an optional image stream name to use that\ncontains all component tags. If specified, tag is\nignored.",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "description": "Namespace identifies the namespace to which the built\nartifacts will be published to.",
+          "type": "string",
+          "x-go-name": "Namespace"
+        },
+        "registry_override": {
+          "description": "RegistryOverride is an override for the registry domain to\nwhich we will mirror images. This is an advanced option and\nshould *not* be used in common test workflows. The CI chat\nbot uses this option to facilitate image sharing.",
+          "type": "string",
+          "x-go-name": "RegistryOverride"
+        },
+        "tag": {
+          "description": "Tag is the ImageStreamTag tagged in for each\nbuild image's ImageStream.",
+          "type": "string",
+          "x-go-name": "Tag"
+        },
+        "tag_by_commit": {
+          "description": "TagByCommit determines if an image should be tagged by the\ngit commit that was used to build it. If Tag is also set,\nthis will cause both a floating tag and commit-specific tags\nto be promoted.",
+          "type": "boolean",
+          "x-go-name": "TagByCommit"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "PullSpecSubstitution": {
+      "description": "PullSpecSubstitution contains a name of a pullspec that needs to\nbe substituted with the name of a different pullspec. This is used\nfor generated operator bundle images.",
+      "type": "object",
+      "properties": {
+        "pullspec": {
+          "description": "PullSpec is the pullspec that needs to be replaced",
+          "type": "string",
+          "x-go-name": "PullSpec"
+        },
+        "with": {
+          "description": "With is the string that the PullSpec is being replaced by",
+          "type": "string",
+          "x-go-name": "With"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RPMImageInjectionStepConfiguration": {
+      "description": "RPMImageInjectionStepConfiguration describes a step\nthat updates injects an RPM repo into an image. If no\noutput tag is provided, the input tag is updated.",
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        },
+        "to": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RPMServeStepConfiguration": {
+      "description": "RPMServeStepConfiguration describes a step that launches\na server from an image with RPMs and exposes it to the web.",
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RegistryChain": {
+      "type": "object",
+      "title": "RegistryChain contains the array of steps, name, and documentation for a step chain.",
+      "properties": {
+        "as": {
+          "description": "As defines the name of the chain. This is how the chain will be referenced from a job's config.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "documentation": {
+          "description": "Documentation describes what the chain does.",
+          "type": "string",
+          "x-go-name": "Documentation"
+        },
+        "env": {
+          "description": "Environment lists parameters that should be set by the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepParameter"
+          },
+          "x-go-name": "Environment"
+        },
+        "leases": {
+          "description": "Leases lists resources that should be acquired for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepLease"
+          },
+          "x-go-name": "Leases"
+        },
+        "steps": {
+          "description": "Steps contains the list of steps that comprise the chain. Steps will be run in the order they are defined.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestStep"
+          },
+          "x-go-name": "Steps"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RegistryChainConfig": {
+      "type": "object",
+      "title": "RegistryChainConfig is the struct that chain references are unmarshalled into.",
+      "properties": {
+        "chain": {
+          "$ref": "#/definitions/RegistryChain"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RegistryReference": {
+      "type": "object",
+      "title": "RegistryReference contains the LiteralTestStep of a reference as well as the documentation for the step.",
+      "properties": {
+        "as": {
+          "description": "As is the name of the LiteralTestStep.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "best_effort": {
+          "description": "BestEffort defines if this step should cause the job to fail when the\nstep fails. This only applies when AllowBestEffortPostSteps flag is set\nto true in MultiStageTestConfiguration. This option is applicable to\n`post` steps.",
+          "type": "boolean",
+          "x-go-name": "BestEffort"
+        },
+        "cli": {
+          "description": "Cli is the (optional) name of the release from which the `oc` binary\nwill be injected into this step.",
+          "type": "string",
+          "x-go-name": "Cli"
+        },
+        "commands": {
+          "description": "Commands is the command(s) that will be run inside the image.",
+          "type": "string",
+          "x-go-name": "Commands"
+        },
+        "credentials": {
+          "description": "Credentials defines the credentials we'll mount into this step.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CredentialReference"
+          },
+          "x-go-name": "Credentials"
+        },
+        "dependencies": {
+          "description": "Dependencies lists images which must be available before the test runs\nand the environment variables which are used to expose their pull specs.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepDependency"
+          },
+          "x-go-name": "Dependencies"
+        },
+        "dnsConfig": {
+          "$ref": "#/definitions/StepDNSConfig"
+        },
+        "documentation": {
+          "description": "Documentation describes what the step being referenced does.",
+          "type": "string",
+          "x-go-name": "Documentation"
+        },
+        "env": {
+          "description": "Environment lists parameters that should be set by the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepParameter"
+          },
+          "x-go-name": "Environment"
+        },
+        "from": {
+          "description": "From is the container image that will be used for this step.",
+          "type": "string",
+          "x-go-name": "From"
+        },
+        "from_image": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "grace_period": {
+          "$ref": "#/definitions/Duration"
+        },
+        "leases": {
+          "description": "Leases lists resources that should be acquired for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepLease"
+          },
+          "x-go-name": "Leases"
+        },
+        "no_kubeconfig": {
+          "description": "NoKubeconfig determines that no $KUBECONFIG will exist in $SHARED_DIR,\nso no local copy of it will be created for the step and if the step\ncreates one, it will not be propagated.",
+          "type": "boolean",
+          "x-go-name": "NoKubeconfig"
+        },
+        "observers": {
+          "description": "Observers are the observers that should be running",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Observers"
+        },
+        "optional_on_success": {
+          "description": "OptionalOnSuccess defines if this step should be skipped as long\nas all `pre` and `test` steps were successful and AllowSkipOnSuccess\nflag is set to true in MultiStageTestConfiguration. This option is\napplicable to `post` steps.",
+          "type": "boolean",
+          "x-go-name": "OptionalOnSuccess"
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceRequirements"
+        },
+        "run_as_script": {
+          "description": "RunAsScript defines if this step should be executed as a script mounted\nin the test container instead of being executed directly via bash",
+          "type": "boolean",
+          "x-go-name": "RunAsScript"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RegistryReferenceConfig": {
+      "type": "object",
+      "title": "RegistryReferenceConfig is the struct that step references are unmarshalled into.",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/RegistryReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RegistryWorkflow": {
+      "type": "object",
+      "title": "RegistryWorkflow contains the MultiStageTestConfiguration, name, and documentation for a workflow.",
+      "properties": {
+        "as": {
+          "description": "As defines the name of the workflow. This is how the workflow will be referenced from a job's config.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "documentation": {
+          "description": "Documentation describes what the workflow does.",
+          "type": "string",
+          "x-go-name": "Documentation"
+        },
+        "steps": {
+          "$ref": "#/definitions/MultiStageTestConfiguration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "RegistryWorkflowConfig": {
+      "type": "object",
+      "title": "RegistryWorkflowConfig is the struct that workflow references are unmarshalled into.",
+      "properties": {
+        "workflow": {
+          "$ref": "#/definitions/RegistryWorkflow"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Release": {
+      "description": "Release describes a generally available release payload",
+      "type": "object",
+      "properties": {
+        "architecture": {
+          "$ref": "#/definitions/ReleaseArchitecture"
+        },
+        "channel": {
+          "$ref": "#/definitions/ReleaseChannel"
+        },
+        "version": {
+          "description": "Version is the minor version to search for",
+          "type": "string",
+          "x-go-name": "Version"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseArchitecture": {
+      "description": "ReleaseArchitecture describes the architecture for the product",
+      "type": "string",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseBuildConfiguration": {
+      "description": "ReleaseBuildConfiguration describes how release\nartifacts are built from a repository of source\ncode. The configuration is made up of two parts:\nminimal fields that allow the user to buy into\nour normal conventions without worrying about\nhow the pipeline flows. Use these preferentially\nfor new projects with simple/conventional build\nconfigurations.\nraw steps that can be used to create custom and\nfine-grained build flows",
+      "type": "object",
+      "properties": {
+        "base_images": {
+          "description": "The list of base images describe\nwhich images are going to be necessary outside\nof the pipeline. The key will be the alias that other\nsteps use to refer to this image.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ImageStreamTagReference"
+          },
+          "x-go-name": "BaseImages"
+        },
+        "base_rpm_images": {
+          "description": "BaseRPMImages is a list of the images and their aliases that will\nhave RPM repositories injected into them for downstream\nimage builds that require built project RPMs.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ImageStreamTagReference"
+          },
+          "x-go-name": "BaseRPMImages"
+        },
+        "binary_build_commands": {
+          "type": "string",
+          "x-go-name": "BinaryBuildCommands"
+        },
+        "build_root": {
+          "$ref": "#/definitions/BuildRootImageConfiguration"
+        },
+        "canonical_go_repository": {
+          "description": "CanonicalGoRepository is a directory path that represents\nthe desired location of the contents of this repository in\nGo. If specified the location of the repository we are\ncloning from is ignored.",
+          "type": "string",
+          "x-go-name": "CanonicalGoRepository"
+        },
+        "images": {
+          "description": "Images describes the images that are built\nbaseImage the project as part of the release\nprocess. The name of each image is its \"to\" value\nand can be used to build only a specific image.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProjectDirectoryImageBuildStepConfiguration"
+          },
+          "x-go-name": "Images"
+        },
+        "operator": {
+          "$ref": "#/definitions/OperatorStepConfiguration"
+        },
+        "promotion": {
+          "$ref": "#/definitions/PromotionConfiguration"
+        },
+        "raw_steps": {
+          "description": "RawSteps are literal Steps that should be\nincluded in the final pipeline.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepConfiguration"
+          },
+          "x-go-name": "RawSteps"
+        },
+        "releases": {
+          "description": "Releases maps semantic release payload identifiers\nto the names that they will be exposed under. For\ninstance, an 'initial' name will be exposed as\n$RELEASE_IMAGE_INITIAL. The 'latest' key is special\nand cannot co-exist with 'tag_specification', as\nthey result in the same output.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/UnresolvedRelease"
+          },
+          "x-go-name": "Releases"
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceConfiguration"
+        },
+        "rpm_build_commands": {
+          "description": "RpmBuildCommands will create an \"rpms\" image from \"bin\" (or \"src\", if no\nbinary build commands were specified) that contains the output of this\ncommand. The created RPMs will then be served via HTTP to the \"base\" image\nvia an injected rpm.repo in the standard location at /etc/yum.repos.d.",
+          "type": "string",
+          "x-go-name": "RpmBuildCommands"
+        },
+        "rpm_build_location": {
+          "description": "RpmBuildLocation is where RPms are deposited after being built. If\nunset, this will default under the repository root to\n_output/local/releases/rpms/.",
+          "type": "string",
+          "x-go-name": "RpmBuildLocation"
+        },
+        "tag_specification": {
+          "$ref": "#/definitions/ReleaseTagConfiguration"
+        },
+        "test_binary_build_commands": {
+          "description": "TestBinaryBuildCommands will create a \"test-bin\" image based on \"src\" that\ncontains the output of this command. This allows reuse of binary artifacts\nacross other steps. If empty, no \"test-bin\" image will be created.",
+          "type": "string",
+          "x-go-name": "TestBinaryBuildCommands"
+        },
+        "tests": {
+          "description": "Tests describes the tests to run inside of built images.\nThe images launched as pods but have no explicit access to\nthe cluster they are running on.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TestStepConfiguration"
+          },
+          "x-go-name": "Tests"
+        },
+        "zz_generated_metadata": {
+          "$ref": "#/definitions/Metadata"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseChannel": {
+      "type": "string",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseConfiguration": {
+      "description": "We always expect this step to be preempted with an env var\nthat was set at startup. This will be cleaner when we refactor\nrelease dependencies.",
+      "type": "object",
+      "title": "ReleaseConfiguration records a resolved release with its name.",
+      "properties": {
+        "candidate": {
+          "$ref": "#/definitions/Candidate"
+        },
+        "integration": {
+          "$ref": "#/definitions/Integration"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "prerelease": {
+          "$ref": "#/definitions/Prerelease"
+        },
+        "release": {
+          "$ref": "#/definitions/Release"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseDescriptor": {
+      "description": "ReleaseDescriptor holds common data for different types of release payloads",
+      "type": "object",
+      "properties": {
+        "architecture": {
+          "$ref": "#/definitions/ReleaseArchitecture"
+        },
+        "product": {
+          "$ref": "#/definitions/ReleaseProduct"
+        },
+        "relative": {
+          "description": "Relative optionally specifies how old of a release\nis requested from this stream. For instance, a value\nof 1 will resolve to the previous validated release\nfor this stream.",
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Relative"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseProduct": {
+      "description": "ReleaseProduct describes the product being released",
+      "type": "string",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseStream": {
+      "type": "string",
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ReleaseTagConfiguration": {
+      "description": "ReleaseTagConfiguration describes how a release is\nassembled from release artifacts. A release image stream is a\nsingle stream with multiple tags (openshift/origin-v3.9:control-plane),\neach tag being a unique and well defined name for a component.",
+      "type": "object",
+      "properties": {
+        "include_built_images": {
+          "description": "IncludeBuiltImages determines if the release we assemble will include\nimages built during the test itself.",
+          "type": "boolean",
+          "x-go-name": "IncludeBuiltImages"
+        },
+        "name": {
+          "description": "Name is the image stream name to use that contains all\ncomponent tags.",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "namespace": {
+          "description": "Namespace identifies the namespace from which\nall release artifacts not built in the current\njob are tagged from.",
+          "type": "string",
+          "x-go-name": "Namespace"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ResourceConfiguration": {
+      "description": "ResourceConfiguration defines resource overrides for jobs run\nby the operator.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/ResourceRequirements"
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ResourceList": {
+      "description": "ResourceList is a map of string resource names and resource\nquantities, as defined on Kubernetes objects. Common resources\nto request or limit are `cpu` and `memory`. For `cpu`, values\nare provided in vCPUs - for instance, `2` or `200m`. For\n`memory`, values are provided in bytes - for instance, `20Mi`\nor `3Gi`.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "ResourceRequirements": {
+      "description": "ResourceRequirements are resource requests and limits applied\nto the individual steps in the job. They are passed directly to\nbuilds or pods.",
+      "type": "object",
+      "properties": {
+        "limits": {
+          "$ref": "#/definitions/ResourceList"
+        },
+        "requests": {
+          "$ref": "#/definitions/ResourceList"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "Secret": {
+      "description": "Secret describes a secret to be mounted inside a test\ncontainer.",
+      "type": "object",
+      "properties": {
+        "mount_path": {
+          "description": "Secret mount path. Defaults to /usr/test-secrets for first\nsecret. /usr/test-secrets-2 for second, and so on.",
+          "type": "string",
+          "x-go-name": "MountPath"
+        },
+        "name": {
+          "description": "Secret name, used inside test containers",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "SourceStepConfiguration": {
+      "description": "SourceStepConfiguration describes a step that\nclones the source repositories required for\njobs. If no output tag is provided, the default\nof `src` is used.",
+      "type": "object",
+      "properties": {
+        "clonerefs_image": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "clonerefs_path": {
+          "description": "ClonerefsPath is the path in the above image where the\nclonerefs tool is placed",
+          "type": "string",
+          "x-go-name": "ClonerefsPath"
+        },
+        "from": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        },
+        "to": {
+          "$ref": "#/definitions/PipelineImageStreamTagReference"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "StepConfiguration": {
+      "description": "Only one of the fields in this can be non-null.",
+      "type": "object",
+      "title": "StepConfiguration holds one step configuration.",
+      "properties": {
+        "bundle_source_step": {
+          "$ref": "#/definitions/BundleSourceStepConfiguration"
+        },
+        "index_generator_step": {
+          "$ref": "#/definitions/IndexGeneratorStepConfiguration"
+        },
+        "input_image_tag_step": {
+          "$ref": "#/definitions/InputImageTagStepConfiguration"
+        },
+        "output_image_tag_step": {
+          "$ref": "#/definitions/OutputImageTagStepConfiguration"
+        },
+        "pipeline_image_cache_step": {
+          "$ref": "#/definitions/PipelineImageCacheStepConfiguration"
+        },
+        "project_directory_image_build_inputs": {
+          "$ref": "#/definitions/ProjectDirectoryImageBuildInputs"
+        },
+        "project_directory_image_build_step": {
+          "$ref": "#/definitions/ProjectDirectoryImageBuildStepConfiguration"
+        },
+        "release_images_tag_step": {
+          "$ref": "#/definitions/ReleaseTagConfiguration"
+        },
+        "resolved_release_images_step": {
+          "$ref": "#/definitions/ReleaseConfiguration"
+        },
+        "rpm_image_injection_step": {
+          "$ref": "#/definitions/RPMImageInjectionStepConfiguration"
+        },
+        "rpm_serve_step": {
+          "$ref": "#/definitions/RPMServeStepConfiguration"
+        },
+        "source_step": {
+          "$ref": "#/definitions/SourceStepConfiguration"
+        },
+        "test_step": {
+          "$ref": "#/definitions/TestStepConfiguration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "StepDNSConfig": {
+      "description": "Used to expose to the step via the specificed search list",
+      "type": "object",
+      "title": "StepDNSConfig defines a resource that needs to be acquired prior to execution.",
+      "properties": {
+        "nameservers": {
+          "description": "Nameservers is a list of IP addresses that will be used as DNS servers for the Pod",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Nameservers"
+        },
+        "searches": {
+          "description": "Searches is a list of DNS search domains for host-name lookup",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Searches"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "StepDependency": {
+      "description": "StepDependency defines a dependency on an image and the environment variable\nused to expose the image's pull spec to the step.",
+      "type": "object",
+      "properties": {
+        "env": {
+          "description": "Env is the environment variable that the image's pull spec is exposed with",
+          "type": "string",
+          "x-go-name": "Env"
+        },
+        "name": {
+          "description": "Name is the tag or stream:tag that this dependency references",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "StepLease": {
+      "description": "The resource name will be exposed to the step via the specificed environment\nvariable.",
+      "type": "object",
+      "title": "StepLease defines a resource that needs to be acquired prior to execution.",
+      "properties": {
+        "count": {
+          "description": "Count is the number of resources to acquire (optional, defaults to 1).",
+          "type": "integer",
+          "format": "uint64",
+          "x-go-name": "Count"
+        },
+        "env": {
+          "description": "Env is the environment variable that will contain the resource name.",
+          "type": "string",
+          "x-go-name": "Env"
+        },
+        "resource_type": {
+          "description": "ResourceType is the type of resource that will be leased.",
+          "type": "string",
+          "x-go-name": "ResourceType"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "StepParameter": {
+      "type": "object",
+      "title": "StepParameter is a variable set by the test, with an optional default.",
+      "properties": {
+        "default": {
+          "description": "Default if not set, optional, makes the parameter not required if set.",
+          "type": "string",
+          "x-go-name": "Default"
+        },
+        "documentation": {
+          "description": "Documentation is a textual description of the parameter.",
+          "type": "string",
+          "x-go-name": "Documentation"
+        },
+        "name": {
+          "description": "Name of the environment variable.",
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "TestDependencies": {
+      "type": "object",
+      "title": "TestDependencies has the values of dependency overrides for multi-stage tests.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "TestEnvironment": {
+      "type": "object",
+      "title": "TestEnvironment has the values of parameters for multi-stage tests.",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "TestStep": {
+      "description": "It can contain either a LiteralTestStep, Reference, or Chain. If more than one is filled in an\nthe same time, config validation will fail.",
+      "type": "object",
+      "title": "TestStep is the struct that a user's configuration gets unmarshalled into.",
+      "properties": {
+        "as": {
+          "description": "As is the name of the LiteralTestStep.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "best_effort": {
+          "description": "BestEffort defines if this step should cause the job to fail when the\nstep fails. This only applies when AllowBestEffortPostSteps flag is set\nto true in MultiStageTestConfiguration. This option is applicable to\n`post` steps.",
+          "type": "boolean",
+          "x-go-name": "BestEffort"
+        },
+        "chain": {
+          "description": "Chain is the name of a step chain reference.",
+          "type": "string",
+          "x-go-name": "Chain"
+        },
+        "cli": {
+          "description": "Cli is the (optional) name of the release from which the `oc` binary\nwill be injected into this step.",
+          "type": "string",
+          "x-go-name": "Cli"
+        },
+        "commands": {
+          "description": "Commands is the command(s) that will be run inside the image.",
+          "type": "string",
+          "x-go-name": "Commands"
+        },
+        "credentials": {
+          "description": "Credentials defines the credentials we'll mount into this step.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CredentialReference"
+          },
+          "x-go-name": "Credentials"
+        },
+        "dependencies": {
+          "description": "Dependencies lists images which must be available before the test runs\nand the environment variables which are used to expose their pull specs.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepDependency"
+          },
+          "x-go-name": "Dependencies"
+        },
+        "dnsConfig": {
+          "$ref": "#/definitions/StepDNSConfig"
+        },
+        "env": {
+          "description": "Environment lists parameters that should be set by the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepParameter"
+          },
+          "x-go-name": "Environment"
+        },
+        "from": {
+          "description": "From is the container image that will be used for this step.",
+          "type": "string",
+          "x-go-name": "From"
+        },
+        "from_image": {
+          "$ref": "#/definitions/ImageStreamTagReference"
+        },
+        "grace_period": {
+          "$ref": "#/definitions/Duration"
+        },
+        "leases": {
+          "description": "Leases lists resources that should be acquired for the test.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StepLease"
+          },
+          "x-go-name": "Leases"
+        },
+        "no_kubeconfig": {
+          "description": "NoKubeconfig determines that no $KUBECONFIG will exist in $SHARED_DIR,\nso no local copy of it will be created for the step and if the step\ncreates one, it will not be propagated.",
+          "type": "boolean",
+          "x-go-name": "NoKubeconfig"
+        },
+        "observers": {
+          "description": "Observers are the observers that should be running",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "x-go-name": "Observers"
+        },
+        "optional_on_success": {
+          "description": "OptionalOnSuccess defines if this step should be skipped as long\nas all `pre` and `test` steps were successful and AllowSkipOnSuccess\nflag is set to true in MultiStageTestConfiguration. This option is\napplicable to `post` steps.",
+          "type": "boolean",
+          "x-go-name": "OptionalOnSuccess"
+        },
+        "ref": {
+          "description": "Reference is the name of a step reference.",
+          "type": "string",
+          "x-go-name": "Reference"
+        },
+        "resources": {
+          "$ref": "#/definitions/ResourceRequirements"
+        },
+        "run_as_script": {
+          "description": "RunAsScript defines if this step should be executed as a script mounted\nin the test container instead of being executed directly via bash",
+          "type": "boolean",
+          "x-go-name": "RunAsScript"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "TestStepConfiguration": {
+      "description": "TestStepConfiguration describes a step that runs a\ncommand in one of the previously built images and then\ngathers artifacts from that step.",
+      "type": "object",
+      "properties": {
+        "always_run": {
+          "description": "AlwaysRun can be set to false to disable running the job on every PR",
+          "type": "boolean",
+          "x-go-name": "AlwaysRun"
+        },
+        "api": {
+          "description": "Api allows access to the test via REST interface,\ncurrently only applicable for periodic jobs.",
+          "type": "boolean",
+          "x-go-name": "Api"
+        },
+        "as": {
+          "description": "As is the name of the test.",
+          "type": "string",
+          "x-go-name": "As"
+        },
+        "cluster": {
+          "$ref": "#/definitions/Cluster"
+        },
+        "cluster_claim": {
+          "$ref": "#/definitions/ClusterClaim"
+        },
+        "commands": {
+          "description": "Commands are the shell commands to run in\nthe repository root to execute tests.",
+          "type": "string",
+          "x-go-name": "Commands"
+        },
+        "container": {
+          "$ref": "#/definitions/ContainerTestConfiguration"
+        },
+        "cron": {
+          "description": "Cron is how often the test is expected to run outside\nof pull request workflows. Setting this field will\ncreate a periodic job instead of a presubmit",
+          "type": "string",
+          "x-go-name": "Cron"
+        },
+        "interval": {
+          "description": "Interval is how frequently the test should be run based\non the last time the test ran. Setting this field will\ncreate a periodic job instead of a presubmit",
+          "type": "string",
+          "x-go-name": "Interval"
+        },
+        "literal_steps": {
+          "$ref": "#/definitions/MultiStageTestConfigurationLiteral"
+        },
+        "minimum_interval": {
+          "description": "MinimumInterval to wait between two runs of the job. Consecutive\njobs are run at `minimum_interval` + `duration of previous job`\napart. Setting this field will create a periodic job instead of a\npresubmit",
+          "type": "string",
+          "x-go-name": "MinimumInterval"
+        },
+        "openshift_ansible": {
+          "$ref": "#/definitions/OpenshiftAnsibleClusterTestConfiguration"
+        },
+        "openshift_ansible_custom": {
+          "$ref": "#/definitions/OpenshiftAnsibleCustomClusterTestConfiguration"
+        },
+        "openshift_ansible_src": {
+          "$ref": "#/definitions/OpenshiftAnsibleSrcClusterTestConfiguration"
+        },
+        "openshift_installer": {
+          "$ref": "#/definitions/OpenshiftInstallerClusterTestConfiguration"
+        },
+        "openshift_installer_custom_test_image": {
+          "$ref": "#/definitions/OpenshiftInstallerCustomTestImageClusterTestConfiguration"
+        },
+        "openshift_installer_upi": {
+          "$ref": "#/definitions/OpenshiftInstallerUPIClusterTestConfiguration"
+        },
+        "openshift_installer_upi_src": {
+          "$ref": "#/definitions/OpenshiftInstallerUPISrcClusterTestConfiguration"
+        },
+        "optional": {
+          "description": "Optional indicates that the job's status context, that is generated from the corresponding test, should not be required for merge.",
+          "type": "boolean",
+          "x-go-name": "Optional"
+        },
+        "portable": {
+          "description": "Portable allows to port periodic tests to current and future release despite the demand to skip periodics",
+          "type": "boolean",
+          "x-go-name": "Portable"
+        },
+        "postsubmit": {
+          "description": "Postsubmit configures prowgen to generate the job as a postsubmit rather than a presubmit",
+          "type": "boolean",
+          "x-go-name": "Postsubmit"
+        },
+        "release_controller": {
+          "description": "ReleaseController configures prowgen to create a periodic that\ndoes not get run by prow and instead is run by release-controller.\nThe job must be configured as a verification or periodic job in a\nrelease-controller config file when this field is set to `true`.",
+          "type": "boolean",
+          "x-go-name": "ReleaseController"
+        },
+        "run_if_changed": {
+          "description": "RunIfChanged is a regex that will result in the test only running if something that matches it was changed.",
+          "type": "string",
+          "x-go-name": "RunIfChanged"
+        },
+        "secret": {
+          "$ref": "#/definitions/Secret"
+        },
+        "secrets": {
+          "description": "Secrets is an optional array of secret objects\nwhich will be mounted inside the test container.\nYou cannot set the Secret and Secrets attributes\nat the same time.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Secret"
+          },
+          "x-go-name": "Secrets"
+        },
+        "skip_if_only_changed": {
+          "description": "SkipIfOnlyChanged is a regex that will result in the test being skipped if all changed files match that regex.",
+          "type": "string",
+          "x-go-name": "SkipIfOnlyChanged"
+        },
+        "steps": {
+          "$ref": "#/definitions/MultiStageTestConfiguration"
+        },
+        "timeout": {
+          "$ref": "#/definitions/Duration"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "UnresolvedRelease": {
+      "description": "UnresolvedRelease describes a semantic release payload\nidentifier we need to resolve to a pull spec.",
+      "type": "object",
+      "properties": {
+        "candidate": {
+          "$ref": "#/definitions/Candidate"
+        },
+        "integration": {
+          "$ref": "#/definitions/Integration"
+        },
+        "prerelease": {
+          "$ref": "#/definitions/Prerelease"
+        },
+        "release": {
+          "$ref": "#/definitions/Release"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    },
+    "VersionBounds": {
+      "description": "VersionBounds describe the upper and lower bounds and stream on a version search",
+      "type": "object",
+      "properties": {
+        "lower": {
+          "type": "string",
+          "x-go-name": "Lower"
+        },
+        "stream": {
+          "description": "Stream dictates which stream to search for a version within the specified bounds\ndefaults to 4-stable.",
+          "type": "string",
+          "x-go-name": "Stream"
+        },
+        "upper": {
+          "type": "string",
+          "x-go-name": "Upper"
+        }
+      },
+      "x-go-package": "github.com/openshift/ci-tools/pkg/api"
+    }
+  }
+}

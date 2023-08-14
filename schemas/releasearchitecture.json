@@ -1,0 +1,6 @@
+{
+  "description": "ReleaseArchitecture describes the architecture for the product",
+  "type": "string",
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

@@ -1,0 +1,27 @@
+{
+  "description": "IndexGeneratorStepConfiguration describes a step that creates an index database and\nDockerfile to build an operator index that uses the generated database based on\nbundle names provided in OperatorIndex",
+  "type": "object",
+  "properties": {
+    "base_index": {
+      "description": "BaseIndex is the index image to add the bundle(s) to. If unset, a new index is created",
+      "type": "string",
+      "x-go-name": "BaseIndex"
+    },
+    "operator_index": {
+      "description": "OperatorIndex is a list of the names of the bundle images that the\nindex will contain in its database.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "OperatorIndex"
+    },
+    "to": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    },
+    "update_graph": {
+      "$ref": "_definitions.json#/definitions/IndexUpdate"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

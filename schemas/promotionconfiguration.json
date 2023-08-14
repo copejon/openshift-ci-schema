@@ -1,0 +1,59 @@
+{
+  "description": "PromotionConfiguration describes where images created by this\nconfig should be published to. The release tag configuration\ndefines the inputs, while this defines the outputs.",
+  "type": "object",
+  "properties": {
+    "additional_images": {
+      "description": "AdditionalImages is a mapping of images to promote. The\nimages will be taken from the pipeline image stream. The\nkey is the name to promote as and the value is the source\nname. If you specify a tag that does not exist as the source\nthe destination tag will not be created.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-go-name": "AdditionalImages"
+    },
+    "disable_build_cache": {
+      "description": "DisableBuildCache stops us from uploading the build cache.\nThis is useful (only) for CI chat bot invocations where\npromotion does not imply output artifacts are being created\nfor posterity.",
+      "type": "boolean",
+      "x-go-name": "DisableBuildCache"
+    },
+    "disabled": {
+      "description": "Disabled will no-op succeed instead of running the actual\npromotion step. This is useful when two branches need to\npromote to the same output imagestream on a cut-over but\nnever concurrently, and you want to have promotion config\nin the ci-operator configuration files all the time.",
+      "type": "boolean",
+      "x-go-name": "Disabled"
+    },
+    "excluded_images": {
+      "description": "ExcludedImages are image names that will not be promoted.\nExclusions are made before additional_images are included.\nUse exclusions when you want to build images for testing\nbut not promote them afterwards.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "ExcludedImages"
+    },
+    "name": {
+      "description": "Name is an optional image stream name to use that\ncontains all component tags. If specified, tag is\nignored.",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "namespace": {
+      "description": "Namespace identifies the namespace to which the built\nartifacts will be published to.",
+      "type": "string",
+      "x-go-name": "Namespace"
+    },
+    "registry_override": {
+      "description": "RegistryOverride is an override for the registry domain to\nwhich we will mirror images. This is an advanced option and\nshould *not* be used in common test workflows. The CI chat\nbot uses this option to facilitate image sharing.",
+      "type": "string",
+      "x-go-name": "RegistryOverride"
+    },
+    "tag": {
+      "description": "Tag is the ImageStreamTag tagged in for each\nbuild image's ImageStream.",
+      "type": "string",
+      "x-go-name": "Tag"
+    },
+    "tag_by_commit": {
+      "description": "TagByCommit determines if an image should be tagged by the\ngit commit that was used to build it. If Tag is also set,\nthis will cause both a floating tag and commit-specific tags\nto be promoted.",
+      "type": "boolean",
+      "x-go-name": "TagByCommit"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

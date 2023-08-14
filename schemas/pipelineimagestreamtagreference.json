@@ -1,0 +1,6 @@
+{
+  "description": "PipelineImageStreamTagReference is a tag on the\nImageStream corresponding to the code under test.\nThis tag will identify an image but not use any\nnamespaces or prefixes, For instance, if for the\nimage openshift/origin-pod, the tag would be `pod`.",
+  "type": "string",
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

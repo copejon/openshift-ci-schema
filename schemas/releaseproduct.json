@@ -1,0 +1,6 @@
+{
+  "description": "ReleaseProduct describes the product being released",
+  "type": "string",
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

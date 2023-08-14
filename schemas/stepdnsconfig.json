@@ -1,0 +1,25 @@
+{
+  "description": "Used to expose to the step via the specificed search list",
+  "type": "object",
+  "title": "StepDNSConfig defines a resource that needs to be acquired prior to execution.",
+  "properties": {
+    "nameservers": {
+      "description": "Nameservers is a list of IP addresses that will be used as DNS servers for the Pod",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "Nameservers"
+    },
+    "searches": {
+      "description": "Searches is a list of DNS search domains for host-name lookup",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "Searches"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

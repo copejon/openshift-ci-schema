@@ -1,0 +1,20 @@
+{
+  "description": "UnresolvedRelease describes a semantic release payload\nidentifier we need to resolve to a pull spec.",
+  "type": "object",
+  "properties": {
+    "candidate": {
+      "$ref": "_definitions.json#/definitions/Candidate"
+    },
+    "integration": {
+      "$ref": "_definitions.json#/definitions/Integration"
+    },
+    "prerelease": {
+      "$ref": "_definitions.json#/definitions/Prerelease"
+    },
+    "release": {
+      "$ref": "_definitions.json#/definitions/Release"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

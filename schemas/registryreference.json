@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "title": "RegistryReference contains the LiteralTestStep of a reference as well as the documentation for the step.",
+  "properties": {
+    "as": {
+      "description": "As is the name of the LiteralTestStep.",
+      "type": "string",
+      "x-go-name": "As"
+    },
+    "best_effort": {
+      "description": "BestEffort defines if this step should cause the job to fail when the\nstep fails. This only applies when AllowBestEffortPostSteps flag is set\nto true in MultiStageTestConfiguration. This option is applicable to\n`post` steps.",
+      "type": "boolean",
+      "x-go-name": "BestEffort"
+    },
+    "cli": {
+      "description": "Cli is the (optional) name of the release from which the `oc` binary\nwill be injected into this step.",
+      "type": "string",
+      "x-go-name": "Cli"
+    },
+    "commands": {
+      "description": "Commands is the command(s) that will be run inside the image.",
+      "type": "string",
+      "x-go-name": "Commands"
+    },
+    "credentials": {
+      "description": "Credentials defines the credentials we'll mount into this step.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/CredentialReference"
+      },
+      "x-go-name": "Credentials"
+    },
+    "dependencies": {
+      "description": "Dependencies lists images which must be available before the test runs\nand the environment variables which are used to expose their pull specs.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/StepDependency"
+      },
+      "x-go-name": "Dependencies"
+    },
+    "dnsConfig": {
+      "$ref": "_definitions.json#/definitions/StepDNSConfig"
+    },
+    "documentation": {
+      "description": "Documentation describes what the step being referenced does.",
+      "type": "string",
+      "x-go-name": "Documentation"
+    },
+    "env": {
+      "description": "Environment lists parameters that should be set by the test.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/StepParameter"
+      },
+      "x-go-name": "Environment"
+    },
+    "from": {
+      "description": "From is the container image that will be used for this step.",
+      "type": "string",
+      "x-go-name": "From"
+    },
+    "from_image": {
+      "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+    },
+    "grace_period": {
+      "$ref": "_definitions.json#/definitions/Duration"
+    },
+    "leases": {
+      "description": "Leases lists resources that should be acquired for the test.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/StepLease"
+      },
+      "x-go-name": "Leases"
+    },
+    "no_kubeconfig": {
+      "description": "NoKubeconfig determines that no $KUBECONFIG will exist in $SHARED_DIR,\nso no local copy of it will be created for the step and if the step\ncreates one, it will not be propagated.",
+      "type": "boolean",
+      "x-go-name": "NoKubeconfig"
+    },
+    "observers": {
+      "description": "Observers are the observers that should be running",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "Observers"
+    },
+    "optional_on_success": {
+      "description": "OptionalOnSuccess defines if this step should be skipped as long\nas all `pre` and `test` steps were successful and AllowSkipOnSuccess\nflag is set to true in MultiStageTestConfiguration. This option is\napplicable to `post` steps.",
+      "type": "boolean",
+      "x-go-name": "OptionalOnSuccess"
+    },
+    "resources": {
+      "$ref": "_definitions.json#/definitions/ResourceRequirements"
+    },
+    "run_as_script": {
+      "description": "RunAsScript defines if this step should be executed as a script mounted\nin the test container instead of being executed directly via bash",
+      "type": "boolean",
+      "x-go-name": "RunAsScript"
+    },
+    "timeout": {
+      "$ref": "_definitions.json#/definitions/Duration"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

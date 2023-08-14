@@ -1,0 +1,123 @@
+{
+  "description": "TestStepConfiguration describes a step that runs a\ncommand in one of the previously built images and then\ngathers artifacts from that step.",
+  "type": "object",
+  "properties": {
+    "always_run": {
+      "description": "AlwaysRun can be set to false to disable running the job on every PR",
+      "type": "boolean",
+      "x-go-name": "AlwaysRun"
+    },
+    "api": {
+      "description": "Api allows access to the test via REST interface,\ncurrently only applicable for periodic jobs.",
+      "type": "boolean",
+      "x-go-name": "Api"
+    },
+    "as": {
+      "description": "As is the name of the test.",
+      "type": "string",
+      "x-go-name": "As"
+    },
+    "cluster": {
+      "$ref": "_definitions.json#/definitions/Cluster"
+    },
+    "cluster_claim": {
+      "$ref": "_definitions.json#/definitions/ClusterClaim"
+    },
+    "commands": {
+      "description": "Commands are the shell commands to run in\nthe repository root to execute tests.",
+      "type": "string",
+      "x-go-name": "Commands"
+    },
+    "container": {
+      "$ref": "_definitions.json#/definitions/ContainerTestConfiguration"
+    },
+    "cron": {
+      "description": "Cron is how often the test is expected to run outside\nof pull request workflows. Setting this field will\ncreate a periodic job instead of a presubmit",
+      "type": "string",
+      "x-go-name": "Cron"
+    },
+    "interval": {
+      "description": "Interval is how frequently the test should be run based\non the last time the test ran. Setting this field will\ncreate a periodic job instead of a presubmit",
+      "type": "string",
+      "x-go-name": "Interval"
+    },
+    "literal_steps": {
+      "$ref": "_definitions.json#/definitions/MultiStageTestConfigurationLiteral"
+    },
+    "minimum_interval": {
+      "description": "MinimumInterval to wait between two runs of the job. Consecutive\njobs are run at `minimum_interval` + `duration of previous job`\napart. Setting this field will create a periodic job instead of a\npresubmit",
+      "type": "string",
+      "x-go-name": "MinimumInterval"
+    },
+    "openshift_ansible": {
+      "$ref": "_definitions.json#/definitions/OpenshiftAnsibleClusterTestConfiguration"
+    },
+    "openshift_ansible_custom": {
+      "$ref": "_definitions.json#/definitions/OpenshiftAnsibleCustomClusterTestConfiguration"
+    },
+    "openshift_ansible_src": {
+      "$ref": "_definitions.json#/definitions/OpenshiftAnsibleSrcClusterTestConfiguration"
+    },
+    "openshift_installer": {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerClusterTestConfiguration"
+    },
+    "openshift_installer_custom_test_image": {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerCustomTestImageClusterTestConfiguration"
+    },
+    "openshift_installer_upi": {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerUPIClusterTestConfiguration"
+    },
+    "openshift_installer_upi_src": {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerUPISrcClusterTestConfiguration"
+    },
+    "optional": {
+      "description": "Optional indicates that the job's status context, that is generated from the corresponding test, should not be required for merge.",
+      "type": "boolean",
+      "x-go-name": "Optional"
+    },
+    "portable": {
+      "description": "Portable allows to port periodic tests to current and future release despite the demand to skip periodics",
+      "type": "boolean",
+      "x-go-name": "Portable"
+    },
+    "postsubmit": {
+      "description": "Postsubmit configures prowgen to generate the job as a postsubmit rather than a presubmit",
+      "type": "boolean",
+      "x-go-name": "Postsubmit"
+    },
+    "release_controller": {
+      "description": "ReleaseController configures prowgen to create a periodic that\ndoes not get run by prow and instead is run by release-controller.\nThe job must be configured as a verification or periodic job in a\nrelease-controller config file when this field is set to `true`.",
+      "type": "boolean",
+      "x-go-name": "ReleaseController"
+    },
+    "run_if_changed": {
+      "description": "RunIfChanged is a regex that will result in the test only running if something that matches it was changed.",
+      "type": "string",
+      "x-go-name": "RunIfChanged"
+    },
+    "secret": {
+      "$ref": "_definitions.json#/definitions/Secret"
+    },
+    "secrets": {
+      "description": "Secrets is an optional array of secret objects\nwhich will be mounted inside the test container.\nYou cannot set the Secret and Secrets attributes\nat the same time.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/Secret"
+      },
+      "x-go-name": "Secrets"
+    },
+    "skip_if_only_changed": {
+      "description": "SkipIfOnlyChanged is a regex that will result in the test being skipped if all changed files match that regex.",
+      "type": "string",
+      "x-go-name": "SkipIfOnlyChanged"
+    },
+    "steps": {
+      "$ref": "_definitions.json#/definitions/MultiStageTestConfiguration"
+    },
+    "timeout": {
+      "$ref": "_definitions.json#/definitions/Duration"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

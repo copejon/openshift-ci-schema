@@ -1,0 +1,6 @@
+{
+  "type": "string",
+  "title": "Cloud is the name of a cloud provider, e.g., aws cluster topology, etc.",
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

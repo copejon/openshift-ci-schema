@@ -1,0 +1,19 @@
+{
+  "description": "PipelineImageCacheStepConfiguration describes a\nstep that builds a container image to cache the\noutput of commands.",
+  "type": "object",
+  "properties": {
+    "commands": {
+      "description": "Commands are the shell commands to run in\nthe repository root to create the cached\ncontent.",
+      "type": "string",
+      "x-go-name": "Commands"
+    },
+    "from": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    },
+    "to": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

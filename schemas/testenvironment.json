@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "TestEnvironment has the values of parameters for multi-stage tests.",
+  "additionalProperties": {
+    "type": "string"
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

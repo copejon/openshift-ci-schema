@@ -1,0 +1,18 @@
+{
+  "description": "ImageSourcePath maps a path in the source image into a destination\npath in the context. See the v1 OpenShift Build API for more info.",
+  "type": "object",
+  "properties": {
+    "destination_dir": {
+      "description": "DestinationDir is the directory in the destination image to copy\nto.",
+      "type": "string",
+      "x-go-name": "DestinationDir"
+    },
+    "source_path": {
+      "description": "SourcePath is a file or directory in the source image to copy from.",
+      "type": "string",
+      "x-go-name": "SourcePath"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

@@ -1,0 +1,14 @@
+{
+  "description": "ResourceRequirements are resource requests and limits applied\nto the individual steps in the job. They are passed directly to\nbuilds or pods.",
+  "type": "object",
+  "properties": {
+    "limits": {
+      "$ref": "_definitions.json#/definitions/ResourceList"
+    },
+    "requests": {
+      "$ref": "_definitions.json#/definitions/ResourceList"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

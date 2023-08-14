@@ -1,0 +1,14 @@
+{
+  "description": "InputImageTagStepConfiguration describes a step that\ntags an externalImage image in to the build pipeline.\nif no explicit output tag is provided, the name\nof the image is used as the tag.",
+  "type": "object",
+  "properties": {
+    "base_image": {
+      "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+    },
+    "to": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

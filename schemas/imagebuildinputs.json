@@ -1,0 +1,24 @@
+{
+  "description": "ImageBuildInputs is a subset of the v1 OpenShift Build API object\ndefining an input source.",
+  "type": "object",
+  "properties": {
+    "as": {
+      "description": "As is a list of multi-stage step names or image names that will\nbe replaced by the image reference from this step. For instance,\nif the Dockerfile defines FROM nginx:latest AS base, specifying\neither \"nginx:latest\" or \"base\" in this array will replace that\nimage with the pipeline input.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "As"
+    },
+    "paths": {
+      "description": "Paths is a list of paths to copy out of this image and into the\ncontext directory.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/ImageSourcePath"
+      },
+      "x-go-name": "Paths"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

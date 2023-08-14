@@ -1,0 +1,9 @@
+{
+  "description": "ResourceConfiguration defines resource overrides for jobs run\nby the operator.",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "_definitions.json_definitions.json#/definitions/ResourceRequirements"
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

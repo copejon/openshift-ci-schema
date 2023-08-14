@@ -1,0 +1,25 @@
+{
+  "description": "We always expect this step to be preempted with an env var\nthat was set at startup. This will be cleaner when we refactor\nrelease dependencies.",
+  "type": "object",
+  "title": "ReleaseConfiguration records a resolved release with its name.",
+  "properties": {
+    "candidate": {
+      "$ref": "_definitions.json#/definitions/Candidate"
+    },
+    "integration": {
+      "$ref": "_definitions.json#/definitions/Integration"
+    },
+    "name": {
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "prerelease": {
+      "$ref": "_definitions.json#/definitions/Prerelease"
+    },
+    "release": {
+      "$ref": "_definitions.json#/definitions/Release"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

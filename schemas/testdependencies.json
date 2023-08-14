@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "title": "TestDependencies has the values of dependency overrides for multi-stage tests.",
+  "additionalProperties": {
+    "type": "string"
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

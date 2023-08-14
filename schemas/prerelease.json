@@ -1,0 +1,23 @@
+{
+  "description": "Prerelease describes a validated release payload before it is exposed",
+  "type": "object",
+  "properties": {
+    "architecture": {
+      "$ref": "_definitions.json#/definitions/ReleaseArchitecture"
+    },
+    "product": {
+      "$ref": "_definitions.json#/definitions/ReleaseProduct"
+    },
+    "relative": {
+      "description": "Relative optionally specifies how old of a release\nis requested from this stream. For instance, a value\nof 1 will resolve to the previous validated release\nfor this stream.",
+      "type": "integer",
+      "format": "int64",
+      "x-go-name": "Relative"
+    },
+    "version_bounds": {
+      "$ref": "_definitions.json#/definitions/VersionBounds"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

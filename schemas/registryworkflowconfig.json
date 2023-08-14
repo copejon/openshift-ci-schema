@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "title": "RegistryWorkflowConfig is the struct that workflow references are unmarshalled into.",
+  "properties": {
+    "workflow": {
+      "$ref": "_definitions.json#/definitions/RegistryWorkflow"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

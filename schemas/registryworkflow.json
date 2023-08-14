@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "title": "RegistryWorkflow contains the MultiStageTestConfiguration, name, and documentation for a workflow.",
+  "properties": {
+    "as": {
+      "description": "As defines the name of the workflow. This is how the workflow will be referenced from a job's config.",
+      "type": "string",
+      "x-go-name": "As"
+    },
+    "documentation": {
+      "description": "Documentation describes what the workflow does.",
+      "type": "string",
+      "x-go-name": "Documentation"
+    },
+    "steps": {
+      "$ref": "_definitions.json#/definitions/MultiStageTestConfiguration"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

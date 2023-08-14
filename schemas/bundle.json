@@ -1,0 +1,36 @@
+{
+  "description": "Bundle contains the data needed to build a bundle from the bundle source image and update an index to include the new bundle",
+  "type": "object",
+  "properties": {
+    "as": {
+      "description": "As defines the name for this bundle. If not set, a name will be automatically generated for the bundle.",
+      "type": "string",
+      "x-go-name": "As"
+    },
+    "base_index": {
+      "description": "BaseIndex defines what index image to use as a base when adding the bundle to an index",
+      "type": "string",
+      "x-go-name": "BaseIndex"
+    },
+    "context_dir": {
+      "description": "ContextDir defines the source directory to build the bundle from relative to the repository root",
+      "type": "string",
+      "x-go-name": "ContextDir"
+    },
+    "dockerfile_path": {
+      "description": "DockerfilePath defines where the dockerfile for build the bundle exists relative to the contextdir",
+      "type": "string",
+      "x-go-name": "DockerfilePath"
+    },
+    "skip_building_index": {
+      "description": "Skip building the index image for this bundle. Default to false.\nThis field works only for named bundles, i.e., \"as\" is not empty.",
+      "type": "boolean",
+      "x-go-name": "SkipBuildingIndex"
+    },
+    "update_graph": {
+      "$ref": "_definitions.json#/definitions/IndexUpdate"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

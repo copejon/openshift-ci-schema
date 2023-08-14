@@ -1,0 +1,98 @@
+{
+  "description": "ReleaseBuildConfiguration describes how release\nartifacts are built from a repository of source\ncode. The configuration is made up of two parts:\nminimal fields that allow the user to buy into\nour normal conventions without worrying about\nhow the pipeline flows. Use these preferentially\nfor new projects with simple/conventional build\nconfigurations.\nraw steps that can be used to create custom and\nfine-grained build flows",
+  "type": "object",
+  "properties": {
+    "base_images": {
+      "description": "The list of base images describe\nwhich images are going to be necessary outside\nof the pipeline. The key will be the alias that other\nsteps use to refer to this image.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+      },
+      "x-go-name": "BaseImages"
+    },
+    "base_rpm_images": {
+      "description": "BaseRPMImages is a list of the images and their aliases that will\nhave RPM repositories injected into them for downstream\nimage builds that require built project RPMs.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+      },
+      "x-go-name": "BaseRPMImages"
+    },
+    "binary_build_commands": {
+      "type": "string",
+      "x-go-name": "BinaryBuildCommands"
+    },
+    "build_root": {
+      "$ref": "_definitions.json#/definitions/BuildRootImageConfiguration"
+    },
+    "canonical_go_repository": {
+      "description": "CanonicalGoRepository is a directory path that represents\nthe desired location of the contents of this repository in\nGo. If specified the location of the repository we are\ncloning from is ignored.",
+      "type": "string",
+      "x-go-name": "CanonicalGoRepository"
+    },
+    "images": {
+      "description": "Images describes the images that are built\nbaseImage the project as part of the release\nprocess. The name of each image is its \"to\" value\nand can be used to build only a specific image.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/ProjectDirectoryImageBuildStepConfiguration"
+      },
+      "x-go-name": "Images"
+    },
+    "operator": {
+      "$ref": "_definitions.json#/definitions/OperatorStepConfiguration"
+    },
+    "promotion": {
+      "$ref": "_definitions.json#/definitions/PromotionConfiguration"
+    },
+    "raw_steps": {
+      "description": "RawSteps are literal Steps that should be\nincluded in the final pipeline.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/StepConfiguration"
+      },
+      "x-go-name": "RawSteps"
+    },
+    "releases": {
+      "description": "Releases maps semantic release payload identifiers\nto the names that they will be exposed under. For\ninstance, an 'initial' name will be exposed as\n$RELEASE_IMAGE_INITIAL. The 'latest' key is special\nand cannot co-exist with 'tag_specification', as\nthey result in the same output.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "_definitions.json#/definitions/UnresolvedRelease"
+      },
+      "x-go-name": "Releases"
+    },
+    "resources": {
+      "$ref": "_definitions.json#/definitions/ResourceConfiguration"
+    },
+    "rpm_build_commands": {
+      "description": "RpmBuildCommands will create an \"rpms\" image from \"bin\" (or \"src\", if no\nbinary build commands were specified) that contains the output of this\ncommand. The created RPMs will then be served via HTTP to the \"base\" image\nvia an injected rpm.repo in the standard location at /etc/yum.repos.d.",
+      "type": "string",
+      "x-go-name": "RpmBuildCommands"
+    },
+    "rpm_build_location": {
+      "description": "RpmBuildLocation is where RPms are deposited after being built. If\nunset, this will default under the repository root to\n_output/local/releases/rpms/.",
+      "type": "string",
+      "x-go-name": "RpmBuildLocation"
+    },
+    "tag_specification": {
+      "$ref": "_definitions.json#/definitions/ReleaseTagConfiguration"
+    },
+    "test_binary_build_commands": {
+      "description": "TestBinaryBuildCommands will create a \"test-bin\" image based on \"src\" that\ncontains the output of this command. This allows reuse of binary artifacts\nacross other steps. If empty, no \"test-bin\" image will be created.",
+      "type": "string",
+      "x-go-name": "TestBinaryBuildCommands"
+    },
+    "tests": {
+      "description": "Tests describes the tests to run inside of built images.\nThe images launched as pods but have no explicit access to\nthe cluster they are running on.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/TestStepConfiguration"
+      },
+      "x-go-name": "Tests"
+    },
+    "zz_generated_metadata": {
+      "$ref": "_definitions.json#/definitions/Metadata"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

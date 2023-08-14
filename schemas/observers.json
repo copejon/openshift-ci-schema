@@ -1,0 +1,24 @@
+{
+  "description": "Observers is a configuration for which observer pods should and should not\nbe run during a job",
+  "type": "object",
+  "properties": {
+    "disable": {
+      "description": "Disable is a list of named observers that should be disabled",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "Disable"
+    },
+    "enable": {
+      "description": "Enable is a list of named observer that should be enabled",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-go-name": "Enable"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

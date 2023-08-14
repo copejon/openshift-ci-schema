@@ -1,0 +1,19 @@
+{
+  "description": "Release describes a generally available release payload",
+  "type": "object",
+  "properties": {
+    "architecture": {
+      "$ref": "_definitions.json#/definitions/ReleaseArchitecture"
+    },
+    "channel": {
+      "$ref": "_definitions.json#/definitions/ReleaseChannel"
+    },
+    "version": {
+      "description": "Version is the minor version to search for",
+      "type": "string",
+      "x-go-name": "Version"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

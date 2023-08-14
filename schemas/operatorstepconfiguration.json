@@ -1,0 +1,25 @@
+{
+  "description": "bundle build dockerfiles, and images the operator(s) depends on that must\nbe substituted to run in a CI test cluster",
+  "type": "object",
+  "title": "OperatorStepConfiguration describes the locations of operator bundle information,",
+  "properties": {
+    "bundles": {
+      "description": "Bundles define a dockerfile and build context to build a bundle",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/Bundle"
+      },
+      "x-go-name": "Bundles"
+    },
+    "substitutions": {
+      "description": "Substitutions describes the pullspecs in the operator manifests that must be subsituted\nwith the pull specs of the images in the CI registry",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/PullSpecSubstitution"
+      },
+      "x-go-name": "Substitutions"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

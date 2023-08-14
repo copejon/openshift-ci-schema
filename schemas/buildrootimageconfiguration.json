@@ -1,0 +1,24 @@
+{
+  "description": "BuildRootImageConfiguration holds the two ways of using a base image\nthat the pipeline will caches on.",
+  "type": "object",
+  "properties": {
+    "from_repository": {
+      "description": "If the BuildRoot images pullspec should be read from a file in the repository (BuildRootImageFileName).",
+      "type": "boolean",
+      "x-go-name": "FromRepository"
+    },
+    "image_stream_tag": {
+      "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+    },
+    "project_image": {
+      "$ref": "_definitions.json#/definitions/ProjectDirectoryImageBuildInputs"
+    },
+    "use_build_cache": {
+      "description": "UseBuildCache enables the import and use of the prior `bin` image\nas a build cache, if the underlying build root has not changed since\nthe previous cache was published.",
+      "type": "boolean",
+      "x-go-name": "UseBuildCache"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

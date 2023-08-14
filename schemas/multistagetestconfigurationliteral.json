@@ -1,0 +1,76 @@
+{
+  "description": "MultiStageTestConfigurationLiteral is a form of the MultiStageTestConfiguration that does not include\nreferences. It is the type that MultiStageTestConfigurations are converted to when parsed by the\nci-operator-configresolver.",
+  "type": "object",
+  "properties": {
+    "allow_best_effort_post_steps": {
+      "description": "AllowBestEffortPostSteps defines if any `post` steps can be ignored when\nthey fail. The given step must explicitly ask for being ignored by setting\nthe OptionalOnSuccess flag to true.",
+      "type": "boolean",
+      "x-go-name": "AllowBestEffortPostSteps"
+    },
+    "allow_skip_on_success": {
+      "description": "AllowSkipOnSuccess defines if any steps can be skipped when\nall previous `pre` and `test` steps were successful. The given step must explicitly\nask for being skipped by setting the OptionalOnSuccess flag to true.",
+      "type": "boolean",
+      "x-go-name": "AllowSkipOnSuccess"
+    },
+    "cluster_profile": {
+      "$ref": "_definitions.json#/definitions/ClusterProfile"
+    },
+    "dependencies": {
+      "$ref": "_definitions.json#/definitions/TestDependencies"
+    },
+    "dependency_overrides": {
+      "$ref": "_definitions.json#/definitions/DependencyOverrides"
+    },
+    "dnsConfig": {
+      "$ref": "_definitions.json#/definitions/StepDNSConfig"
+    },
+    "env": {
+      "$ref": "_definitions.json#/definitions/TestEnvironment"
+    },
+    "leases": {
+      "description": "Leases lists resources that should be acquired for the test.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/StepLease"
+      },
+      "x-go-name": "Leases"
+    },
+    "observers": {
+      "description": "Observers are the observers that need to be run",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/Observer"
+      },
+      "x-go-name": "Observers"
+    },
+    "post": {
+      "description": "Post is the array of test steps run after the tests finish and teardown/deprovision resources.\nPost steps always run, even if previous steps fail.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/LiteralTestStep"
+      },
+      "x-go-name": "Post"
+    },
+    "pre": {
+      "description": "Pre is the array of test steps run to set up the environment for the test.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/LiteralTestStep"
+      },
+      "x-go-name": "Pre"
+    },
+    "test": {
+      "description": "Test is the array of test steps that define the actual test.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/LiteralTestStep"
+      },
+      "x-go-name": "Test"
+    },
+    "timeout": {
+      "$ref": "_definitions.json#/definitions/Duration"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

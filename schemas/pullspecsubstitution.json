@@ -1,0 +1,18 @@
+{
+  "description": "PullSpecSubstitution contains a name of a pullspec that needs to\nbe substituted with the name of a different pullspec. This is used\nfor generated operator bundle images.",
+  "type": "object",
+  "properties": {
+    "pullspec": {
+      "description": "PullSpec is the pullspec that needs to be replaced",
+      "type": "string",
+      "x-go-name": "PullSpec"
+    },
+    "with": {
+      "description": "With is the string that the PullSpec is being replaced by",
+      "type": "string",
+      "x-go-name": "With"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

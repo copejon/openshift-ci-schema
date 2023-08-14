@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "title": "ClusterClaim claims an OpenShift cluster for the job.",
+  "properties": {
+    "architecture": {
+      "$ref": "_definitions.json#/definitions/ReleaseArchitecture"
+    },
+    "as": {
+      "description": "As is the name to use when importing the cluster claim release payload.\nIf unset, claim release will be imported as `latest`.",
+      "type": "string",
+      "x-go-name": "As"
+    },
+    "cloud": {
+      "$ref": "_definitions.json#/definitions/Cloud"
+    },
+    "labels": {
+      "description": "Labels is the labels to select the cluster pools",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "x-go-name": "Labels"
+    },
+    "owner": {
+      "description": "Owner is the owner of cloud account used to install the product, e.g., dpp.",
+      "type": "string",
+      "x-go-name": "Owner"
+    },
+    "product": {
+      "$ref": "_definitions.json#/definitions/ReleaseProduct"
+    },
+    "timeout": {
+      "$ref": "_definitions.json#/definitions/Duration"
+    },
+    "version": {
+      "description": "Version is the version of the product",
+      "type": "string",
+      "x-go-name": "Version"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

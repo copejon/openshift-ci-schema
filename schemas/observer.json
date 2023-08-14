@@ -1,0 +1,35 @@
+{
+  "description": "Observer is the configuration for an observer Pod that will run in parallel\nwith a multi-stage test job.",
+  "type": "object",
+  "properties": {
+    "commands": {
+      "description": "Commands is the command(s) that will be run inside the image.",
+      "type": "string",
+      "x-go-name": "Commands"
+    },
+    "from": {
+      "description": "From is the container image that will be used for this observer.",
+      "type": "string",
+      "x-go-name": "From"
+    },
+    "from_image": {
+      "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+    },
+    "grace_period": {
+      "$ref": "_definitions.json#/definitions/Duration"
+    },
+    "name": {
+      "description": "Name is the name of this observer",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "resources": {
+      "$ref": "_definitions.json#/definitions/ResourceRequirements"
+    },
+    "timeout": {
+      "$ref": "_definitions.json#/definitions/Duration"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

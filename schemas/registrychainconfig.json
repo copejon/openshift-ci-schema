@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "title": "RegistryChainConfig is the struct that chain references are unmarshalled into.",
+  "properties": {
+    "chain": {
+      "$ref": "_definitions.json#/definitions/RegistryChain"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

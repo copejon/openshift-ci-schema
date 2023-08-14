@@ -1,0 +1,6 @@
+{
+  "description": "IndexUpdate specifies the update mode for an operator being added to an index",
+  "type": "string",
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

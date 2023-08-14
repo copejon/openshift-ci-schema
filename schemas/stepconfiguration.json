@@ -1,0 +1,48 @@
+{
+  "description": "Only one of the fields in this can be non-null.",
+  "type": "object",
+  "title": "StepConfiguration holds one step configuration.",
+  "properties": {
+    "bundle_source_step": {
+      "$ref": "_definitions.json#/definitions/BundleSourceStepConfiguration"
+    },
+    "index_generator_step": {
+      "$ref": "_definitions.json#/definitions/IndexGeneratorStepConfiguration"
+    },
+    "input_image_tag_step": {
+      "$ref": "_definitions.json#/definitions/InputImageTagStepConfiguration"
+    },
+    "output_image_tag_step": {
+      "$ref": "_definitions.json#/definitions/OutputImageTagStepConfiguration"
+    },
+    "pipeline_image_cache_step": {
+      "$ref": "_definitions.json#/definitions/PipelineImageCacheStepConfiguration"
+    },
+    "project_directory_image_build_inputs": {
+      "$ref": "_definitions.json#/definitions/ProjectDirectoryImageBuildInputs"
+    },
+    "project_directory_image_build_step": {
+      "$ref": "_definitions.json#/definitions/ProjectDirectoryImageBuildStepConfiguration"
+    },
+    "release_images_tag_step": {
+      "$ref": "_definitions.json#/definitions/ReleaseTagConfiguration"
+    },
+    "resolved_release_images_step": {
+      "$ref": "_definitions.json#/definitions/ReleaseConfiguration"
+    },
+    "rpm_image_injection_step": {
+      "$ref": "_definitions.json#/definitions/RPMImageInjectionStepConfiguration"
+    },
+    "rpm_serve_step": {
+      "$ref": "_definitions.json#/definitions/RPMServeStepConfiguration"
+    },
+    "source_step": {
+      "$ref": "_definitions.json#/definitions/SourceStepConfiguration"
+    },
+    "test_step": {
+      "$ref": "_definitions.json#/definitions/TestStepConfiguration"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

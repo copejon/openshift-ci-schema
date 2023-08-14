@@ -1,0 +1,19 @@
+{
+  "description": "ContainerTestConfiguration describes a test that runs a\ncommand in one of the previously built images.",
+  "type": "object",
+  "properties": {
+    "clone": {
+      "description": "If the step should clone the source code prior to running the command.\nDefaults to `true` for `base_images`, `false` otherwise.",
+      "type": "boolean",
+      "x-go-name": "Clone"
+    },
+    "from": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    },
+    "memory_backed_volume": {
+      "$ref": "_definitions.json#/definitions/MemoryBackedVolume"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

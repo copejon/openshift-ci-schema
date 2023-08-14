@@ -1,0 +1,21 @@
+{
+  "description": "VersionBounds describe the upper and lower bounds and stream on a version search",
+  "type": "object",
+  "properties": {
+    "lower": {
+      "type": "string",
+      "x-go-name": "Lower"
+    },
+    "stream": {
+      "description": "Stream dictates which stream to search for a version within the specified bounds\ndefaults to 4-stable.",
+      "type": "string",
+      "x-go-name": "Stream"
+    },
+    "upper": {
+      "type": "string",
+      "x-go-name": "Upper"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

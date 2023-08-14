@@ -1,0 +1,6 @@
+{
+  "type": "string",
+  "title": "Cluster is the name of a cluster in CI build farm.",
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

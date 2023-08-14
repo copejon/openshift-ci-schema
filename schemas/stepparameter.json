@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "title": "StepParameter is a variable set by the test, with an optional default.",
+  "properties": {
+    "default": {
+      "description": "Default if not set, optional, makes the parameter not required if set.",
+      "type": "string",
+      "x-go-name": "Default"
+    },
+    "documentation": {
+      "description": "Documentation is a textual description of the parameter.",
+      "type": "string",
+      "x-go-name": "Documentation"
+    },
+    "name": {
+      "description": "Name of the environment variable.",
+      "type": "string",
+      "x-go-name": "Name"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

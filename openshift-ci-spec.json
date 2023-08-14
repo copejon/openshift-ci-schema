@@ -1,0 +1,241 @@
+{
+  "oneOf": [
+    {
+      "$ref": "_definitions.json#/definitions/BuildArg"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/BuildRootImageConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Bundle"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/BundleSourceStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Candidate"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Cloud"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Cluster"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ClusterClaim"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ClusterProfile"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ContainerTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/CredentialReference"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/DependencyOverrides"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Duration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ImageBuildInputs"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ImageSourcePath"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/IndexGeneratorStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/IndexUpdate"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/InputConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/InputImage"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/InputImageTagStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Integration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/LiteralTestStep"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/MemoryBackedVolume"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Metadata"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/MultiStageTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/MultiStageTestConfigurationLiteral"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Observer"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Observers"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OpenshiftAnsibleClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OpenshiftAnsibleCustomClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OpenshiftAnsibleSrcClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerCustomTestImageClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerUPIClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OpenshiftInstallerUPISrcClusterTestConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OperatorStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/OutputImageTagStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/PipelineImageCacheStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Prerelease"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ProjectDirectoryImageBuildInputs"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ProjectDirectoryImageBuildStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/PromotionConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/PullSpecSubstitution"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RPMImageInjectionStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RPMServeStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RegistryChain"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RegistryChainConfig"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RegistryReference"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RegistryReferenceConfig"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RegistryWorkflow"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/RegistryWorkflowConfig"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Release"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseArchitecture"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseBuildConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseChannel"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseDescriptor"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseProduct"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseStream"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ReleaseTagConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ResourceConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ResourceList"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/ResourceRequirements"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/Secret"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/SourceStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/StepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/StepDNSConfig"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/StepDependency"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/StepLease"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/StepParameter"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/TestDependencies"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/TestEnvironment"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/TestStep"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/TestStepConfiguration"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/UnresolvedRelease"
+    },
+    {
+      "$ref": "_definitions.json#/definitions/VersionBounds"
+    }
+  ]
+}

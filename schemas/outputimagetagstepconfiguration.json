@@ -1,0 +1,19 @@
+{
+  "description": "OutputImageTagStepConfiguration describes a step that\ntags a pipeline image out from the build pipeline.",
+  "type": "object",
+  "properties": {
+    "from": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    },
+    "optional": {
+      "description": "Optional means the output step is not built, published, or\npromoted unless explicitly targeted. Use for builds which\nare invoked only when testing certain parts of the repo.",
+      "type": "boolean",
+      "x-go-name": "Optional"
+    },
+    "to": {
+      "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

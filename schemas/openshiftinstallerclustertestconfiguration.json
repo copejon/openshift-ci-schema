@@ -1,0 +1,16 @@
+{
+  "description": "OpenshiftInstallerClusterTestConfiguration describes a test\nthat provisions a cluster using openshift-installer and runs\nconformance tests.",
+  "type": "object",
+  "properties": {
+    "cluster_profile": {
+      "$ref": "_definitions.json#/definitions/ClusterProfile"
+    },
+    "upgrade": {
+      "description": "If upgrade is true, RELEASE_IMAGE_INITIAL will be used as\nthe initial payload and the installer image from that\nwill be upgraded. The `run-upgrade-tests` function will be\navailable for the commands.",
+      "type": "boolean",
+      "x-go-name": "Upgrade"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

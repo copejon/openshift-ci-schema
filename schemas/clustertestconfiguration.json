@@ -1,0 +1,11 @@
+{
+  "description": "ClusterTestConfiguration describes a test that provisions\na cluster and runs a command in it.",
+  "type": "object",
+  "properties": {
+    "cluster_profile": {
+      "$ref": "_definitions.json#/definitions/ClusterProfile"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

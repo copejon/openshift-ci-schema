@@ -1,0 +1,11 @@
+{
+  "description": "RPMServeStepConfiguration describes a step that launches\na server from an image with RPMs and exposes it to the web.",
+  "type": "object",
+  "properties": {
+    "from": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

@@ -1,0 +1,23 @@
+{
+  "description": "ReleaseTagConfiguration describes how a release is\nassembled from release artifacts. A release image stream is a\nsingle stream with multiple tags (openshift/origin-v3.9:control-plane),\neach tag being a unique and well defined name for a component.",
+  "type": "object",
+  "properties": {
+    "include_built_images": {
+      "description": "IncludeBuiltImages determines if the release we assemble will include\nimages built during the test itself.",
+      "type": "boolean",
+      "x-go-name": "IncludeBuiltImages"
+    },
+    "name": {
+      "description": "Name is the image stream name to use that contains all\ncomponent tags.",
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "namespace": {
+      "description": "Namespace identifies the namespace from which\nall release artifacts not built in the current\njob are tagged from.",
+      "type": "string",
+      "x-go-name": "Namespace"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

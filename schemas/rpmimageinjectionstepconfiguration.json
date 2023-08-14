@@ -1,0 +1,14 @@
+{
+  "description": "RPMImageInjectionStepConfiguration describes a step\nthat updates injects an RPM repo into an image. If no\noutput tag is provided, the input tag is updated.",
+  "type": "object",
+  "properties": {
+    "from": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    },
+    "to": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

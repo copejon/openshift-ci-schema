@@ -1,0 +1,25 @@
+{
+  "description": "ImageStreamTagReference identifies an ImageStreamTag",
+  "type": "object",
+  "properties": {
+    "as": {
+      "description": "As is an optional string to use as the intermediate name for this reference.",
+      "type": "string",
+      "x-go-name": "As"
+    },
+    "name": {
+      "type": "string",
+      "x-go-name": "Name"
+    },
+    "namespace": {
+      "type": "string",
+      "x-go-name": "Namespace"
+    },
+    "tag": {
+      "type": "string",
+      "x-go-name": "Tag"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

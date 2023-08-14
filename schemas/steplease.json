@@ -1,0 +1,25 @@
+{
+  "description": "The resource name will be exposed to the step via the specificed environment\nvariable.",
+  "type": "object",
+  "title": "StepLease defines a resource that needs to be acquired prior to execution.",
+  "properties": {
+    "count": {
+      "description": "Count is the number of resources to acquire (optional, defaults to 1).",
+      "type": "integer",
+      "format": "uint64",
+      "x-go-name": "Count"
+    },
+    "env": {
+      "description": "Env is the environment variable that will contain the resource name.",
+      "type": "string",
+      "x-go-name": "Env"
+    },
+    "resource_type": {
+      "description": "ResourceType is the type of resource that will be leased.",
+      "type": "string",
+      "x-go-name": "ResourceType"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

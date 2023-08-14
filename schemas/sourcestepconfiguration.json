@@ -1,0 +1,22 @@
+{
+  "description": "SourceStepConfiguration describes a step that\nclones the source repositories required for\njobs. If no output tag is provided, the default\nof `src` is used.",
+  "type": "object",
+  "properties": {
+    "clonerefs_image": {
+      "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+    },
+    "clonerefs_path": {
+      "description": "ClonerefsPath is the path in the above image where the\nclonerefs tool is placed",
+      "type": "string",
+      "x-go-name": "ClonerefsPath"
+    },
+    "from": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    },
+    "to": {
+      "$ref": "_definitions.json#/definitions/PipelineImageStreamTagReference"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

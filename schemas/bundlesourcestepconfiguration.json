@@ -1,0 +1,16 @@
+{
+  "description": "BundleSourceStepConfiguration describes a step that performs a set of\nsubstitutions on all yaml files in the `src` image so that the\npullspecs in the operator manifests point to images inside the CI registry.\nIt is intended to be used as the source image for bundle image builds.",
+  "type": "object",
+  "properties": {
+    "substitutions": {
+      "description": "Substitutions contains pullspecs that need to be replaced by images\nin the CI cluster for operator bundle images",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/PullSpecSubstitution"
+      },
+      "x-go-name": "Substitutions"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

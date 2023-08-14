@@ -1,0 +1,6 @@
+{
+  "description": "Duration is a wrapper around time.Duration that parses times in either\n'integer number of nanoseconds' or 'duration string' formats and serializes\nto 'duration string' format.\n+kubebuilder:validation:Type=string",
+  "type": "object",
+  "x-go-package": "k8s.io/test-infra/prow/apis/prowjobs/v1",
+  "$schema": "http://json-schema.org/schema#"
+}

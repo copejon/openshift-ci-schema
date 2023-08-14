@@ -1,0 +1,39 @@
+{
+  "description": "ProjectDirectoryImageBuildInputs holds inputs for an image build from the repo under test",
+  "type": "object",
+  "properties": {
+    "build_args": {
+      "description": "BuildArgs contains build arguments that will be resolved in the Dockerfile.\nSee https://docs.docker.com/engine/reference/builder/#/arg for more details.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/BuildArg"
+      },
+      "x-go-name": "BuildArgs"
+    },
+    "context_dir": {
+      "description": "ContextDir is the directory in the project\nfrom which this build should be run.",
+      "type": "string",
+      "x-go-name": "ContextDir"
+    },
+    "dockerfile_literal": {
+      "description": "DockerfileLiteral can be used to  provide an inline Dockerfile.\nMutually exclusive with DockerfilePath.",
+      "type": "string",
+      "x-go-name": "DockerfileLiteral"
+    },
+    "dockerfile_path": {
+      "description": "DockerfilePath is the path to a Dockerfile in the\nproject to run relative to the context_dir.",
+      "type": "string",
+      "x-go-name": "DockerfilePath"
+    },
+    "inputs": {
+      "description": "Inputs is a map of tag reference name to image input changes\nthat will populate the build context for the Dockerfile or\nalter the input image for a multi-stage build.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "_definitions.json#/definitions/ImageBuildInputs"
+      },
+      "x-go-name": "Inputs"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

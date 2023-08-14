@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "title": "RegistryReferenceConfig is the struct that step references are unmarshalled into.",
+  "properties": {
+    "ref": {
+      "$ref": "_definitions.json#/definitions/RegistryReference"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

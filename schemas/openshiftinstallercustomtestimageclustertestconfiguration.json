@@ -1,0 +1,16 @@
+{
+  "description": "OpenshiftInstallerCustomTestImageClusterTestConfiguration describes a\ntest that provisions a cluster using openshift-installer and\nexecutes a command in the image specified by the job configuration.",
+  "type": "object",
+  "properties": {
+    "cluster_profile": {
+      "$ref": "_definitions.json#/definitions/ClusterProfile"
+    },
+    "from": {
+      "description": "From defines the imagestreamtag that will be used to run the\nprovided test command.  e.g. stable:console-test",
+      "type": "string",
+      "x-go-name": "From"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

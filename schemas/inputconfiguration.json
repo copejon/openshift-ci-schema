@@ -1,0 +1,38 @@
+{
+  "description": "InputConfiguration contains the set of image inputs\nto a build and can be used as an override to the\ncanonical inputs by a local process.",
+  "type": "object",
+  "properties": {
+    "base_images": {
+      "description": "The list of base images describe\nwhich images are going to be necessary outside\nof the pipeline. The key will be the alias that other\nsteps use to refer to this image.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+      },
+      "x-go-name": "BaseImages"
+    },
+    "base_rpm_images": {
+      "description": "BaseRPMImages is a list of the images and their aliases that will\nhave RPM repositories injected into them for downstream\nimage builds that require built project RPMs.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "_definitions.json#/definitions/ImageStreamTagReference"
+      },
+      "x-go-name": "BaseRPMImages"
+    },
+    "build_root": {
+      "$ref": "_definitions.json#/definitions/BuildRootImageConfiguration"
+    },
+    "releases": {
+      "description": "Releases maps semantic release payload identifiers\nto the names that they will be exposed under. For\ninstance, an 'initial' name will be exposed as\n$RELEASE_IMAGE_INITIAL. The 'latest' key is special\nand cannot co-exist with 'tag_specification', as\nthey result in the same output.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "_definitions.json#/definitions/UnresolvedRelease"
+      },
+      "x-go-name": "Releases"
+    },
+    "tag_specification": {
+      "$ref": "_definitions.json#/definitions/ReleaseTagConfiguration"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

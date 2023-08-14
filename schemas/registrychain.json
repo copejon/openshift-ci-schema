@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "title": "RegistryChain contains the array of steps, name, and documentation for a step chain.",
+  "properties": {
+    "as": {
+      "description": "As defines the name of the chain. This is how the chain will be referenced from a job's config.",
+      "type": "string",
+      "x-go-name": "As"
+    },
+    "documentation": {
+      "description": "Documentation describes what the chain does.",
+      "type": "string",
+      "x-go-name": "Documentation"
+    },
+    "env": {
+      "description": "Environment lists parameters that should be set by the test.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/StepParameter"
+      },
+      "x-go-name": "Environment"
+    },
+    "leases": {
+      "description": "Leases lists resources that should be acquired for the test.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/StepLease"
+      },
+      "x-go-name": "Leases"
+    },
+    "steps": {
+      "description": "Steps contains the list of steps that comprise the chain. Steps will be run in the order they are defined.",
+      "type": "array",
+      "items": {
+        "$ref": "_definitions.json#/definitions/TestStep"
+      },
+      "x-go-name": "Steps"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

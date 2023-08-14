@@ -1,0 +1,13 @@
+{
+  "description": "MemoryBackedVolume describes a tmpfs (memory backed volume)\nthat will be mounted into a test container at /tmp/volume.\nUse with tests that need extremely fast disk, such as those\nthat run an etcd server or other IO-intensive workload.",
+  "type": "object",
+  "properties": {
+    "size": {
+      "description": "Size is the requested size of the volume as a Kubernetes\nquantity, i.e. \"1Gi\" or \"500M\"",
+      "type": "string",
+      "x-go-name": "Size"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

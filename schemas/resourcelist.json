@@ -1,0 +1,9 @@
+{
+  "description": "ResourceList is a map of string resource names and resource\nquantities, as defined on Kubernetes objects. Common resources\nto request or limit are `cpu` and `memory`. For `cpu`, values\nare provided in vCPUs - for instance, `2` or `200m`. For\n`memory`, values are provided in bytes - for instance, `20Mi`\nor `3Gi`.",
+  "type": "object",
+  "additionalProperties": {
+    "type": "string"
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}

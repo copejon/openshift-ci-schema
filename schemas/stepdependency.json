@@ -1,0 +1,18 @@
+{
+  "description": "StepDependency defines a dependency on an image and the environment variable\nused to expose the image's pull spec to the step.",
+  "type": "object",
+  "properties": {
+    "env": {
+      "description": "Env is the environment variable that the image's pull spec is exposed with",
+      "type": "string",
+      "x-go-name": "Env"
+    },
+    "name": {
+      "description": "Name is the tag or stream:tag that this dependency references",
+      "type": "string",
+      "x-go-name": "Name"
+    }
+  },
+  "x-go-package": "github.com/openshift/ci-tools/pkg/api",
+  "$schema": "http://json-schema.org/schema#"
+}
